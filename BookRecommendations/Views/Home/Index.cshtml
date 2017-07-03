@@ -1,5 +1,19 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<BookRecommendations.Models.Book>
+
+@{
+    ViewData["Title"] = "Book Recommendations";
+}
+
+<div class="jumbotron">
+    <h1>@ViewData["Title"]</h1>
+    <p>A catalog of books with author, publisher and year of publication.</p>
+    <p>Shows only the first 30 books</p>
+    <p>Click a book to see details and recommendations</p>
+</div>
+
+@foreach (var book in Model.Take(30))
+{
+    <p><a asp-action="Book" asp-controller="Home" asp-route-id="@book.Id"><strong>@book.Title</strong> (@book.Author, @book.Year, @book.Publisher)</a></p>
 }
 
 
