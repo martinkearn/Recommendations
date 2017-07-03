@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using BookRecommendations.Models;
-using BookRecommendations.Interfaces;
-using BookRecommendations.Repositories;
 
 namespace BookRecommendations
 {
@@ -32,14 +29,6 @@ namespace BookRecommendations
         {
             // Add framework services.
             services.AddMvc();
-
-            //add app settings
-            var appSettings = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettings);
-
-            // Add repositories
-            services.AddSingleton<IBooksRepository, BooksRepository>();
-            services.AddSingleton<IRecommendationsRepository, RecommendationsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
