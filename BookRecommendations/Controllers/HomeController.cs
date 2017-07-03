@@ -29,7 +29,8 @@ namespace BookRecommendations.Controllers
 
         public IActionResult Cart()
         {
-            var cart = _cart.GetCart("martin");
+            var user = User.Identity;
+            var cart = _cart.GetCart(user.Name);
             return View(cart);
         }
 

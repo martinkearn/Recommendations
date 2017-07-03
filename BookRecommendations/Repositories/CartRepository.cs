@@ -1,5 +1,6 @@
 ﻿using BookRecommendations.Interfaces;
 using BookRecommendations.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -25,15 +26,13 @@ namespace BookRecommendations.Repositories
 
             if (cart == null)
             {
-                var newCart = new Cart()
+                cart = new Cart()
                 {
                     User = user,
                     Books = new List<Book>()
                 };
 
-                _carts.Add(newCart);
-
-                cart = newCart;
+                _carts.Add(cart);
             }
 
             return cart;
@@ -52,5 +51,6 @@ namespace BookRecommendations.Repositories
 
             return cart;
         }
+
     }
 }
