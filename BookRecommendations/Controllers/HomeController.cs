@@ -12,17 +12,25 @@ namespace BookRecommendations.Controllers
     {
         private readonly IBooksRepository _books;
         private readonly IRecommendationsRepository _recommendations;
+        private readonly ICartRepository _cart;
 
-        public HomeController(IBooksRepository booksRepository, IRecommendationsRepository recommendationsRepository)
+        public HomeController(IBooksRepository booksRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
             _books = booksRepository;
             _recommendations = recommendationsRepository;
+            _cart = cart;
         }
 
         public IActionResult Index()
         {
             var allBooks = _books.GetBooks();
             return View(allBooks);
+        }
+
+        public IActionResult Cart()
+        {
+            var cart = _cart.GetCart("martin");
+            return View(cart);
         }
 
         public async Task<IActionResult> Book(string id)

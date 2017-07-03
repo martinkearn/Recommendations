@@ -40,6 +40,7 @@ namespace BookRecommendations
             // Add repositories
             services.AddSingleton<IBooksRepository, BooksRepository>();
             services.AddSingleton<IRecommendationsRepository, RecommendationsRepository>();
+            services.AddSingleton<ICartRepository, CartRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
