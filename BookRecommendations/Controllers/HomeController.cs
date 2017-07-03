@@ -28,7 +28,7 @@ namespace BookRecommendations.Controllers
         public async Task<IActionResult> Book(string id)
         {
             //get this book
-            var book = _books.GetBooks().Where(o => o.Id == id).FirstOrDefault();
+            var book = _books.GetBookById(id);
 
             //get ITI and FBT items
             var itiItems = await _recommendations.GetITIItems(id, "5", "0");

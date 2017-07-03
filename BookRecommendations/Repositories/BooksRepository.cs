@@ -51,5 +51,10 @@ namespace BookRecommendations.Repositories
         {
             return _books;
         }
+
+        public Book GetBookById(string id)
+        {
+            return _books.Where(o => o.Id == id).FirstOrDefault();
+        }
     }
 }

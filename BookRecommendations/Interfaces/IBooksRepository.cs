@@ -6,5 +6,7 @@ namespace BookRecommendations.Interfaces
     public interface IBooksRepository
     {
         IEnumerable<Book> GetBooks();
+
+        Book GetBookById(string id);
     }
 }
