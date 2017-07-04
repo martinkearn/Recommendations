@@ -10,43 +10,36 @@ namespace BookRecommendations.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBooksRepository _books;
+        private readonly ISkusRepository _skus;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
 
-        public HomeController(IBooksRepository booksRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public HomeController(ISkusRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
-            _books = booksRepository;
+            _skus = skusRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
         }
 
         public IActionResult Index()
         {
-            var allBooks = _books.GetBooks();
+            var allBooks = _skus.GetSkus();
             return View(allBooks);
         }
 
-        public IActionResult Cart()
-        {
-            var user = User.Identity;
-            var cart = _cart.GetCart(user.Name);
-            return View(cart);
-        }
-
-        public async Task<IActionResult> Book(string id)
+        public async Task<IActionResult> Sku(string id)
         {
             //get this book
-            var book = _books.GetBookById(id);
+            var sku = _skus.GetSkuById(id);
 
             //get ITI and FBT items
             var itiItems = await _recommendations.GetITIItems(id, "5", "0");
             var fbtItems = await _recommendations.GetFBTItems(id, "5", "0");
 
             //construct view model
-            var vm = new HomeBookViewModel()
+            var vm = new HomeSkuViewModel()
             {
-                Book = book,
+                Sku = sku,
                 ITIItems = itiItems,
                 FBTItems = fbtItems
             };

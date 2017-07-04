@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using BookRecommendations.Models;
 using BookRecommendations.Interfaces;
 using BookRecommendations.Repositories;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace BookRecommendations
 {
@@ -37,8 +38,13 @@ namespace BookRecommendations
             var appSettings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettings);
 
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
+
             // Add repositories
-            services.AddSingleton<IBooksRepository, BooksRepository>();
+            services.AddSingleton<ISkusRepository, SkusRepository>();
             services.AddSingleton<IRecommendationsRepository, RecommendationsRepository>();
             services.AddSingleton<ICartRepository, CartRepository>();
         }
@@ -60,6 +66,10 @@ namespace BookRecommendations
             }
 
             app.UseStaticFiles();
+
+
+            // IMPORTANT: This session call MUST go before UseMvc()
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

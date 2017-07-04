@@ -8,13 +8,13 @@ using System.Text;
 
 namespace BookRecommendations.Repositories
 {
-    public class BooksRepository : IBooksRepository
+    public class SkusRepository : ISkusRepository
     {
-        private readonly IEnumerable<Book> _books;
+        private readonly IEnumerable<Sku> _skus;
 
-        public BooksRepository(IHostingEnvironment environment)
+        public SkusRepository(IHostingEnvironment environment)
         {
-            var books = new List<Book>();
+            var books = new List<Sku>();
             var rootPath = environment.ContentRootPath;
             var storeFilePath = rootPath + "/wwwroot/bookscatalog.txt";
             using (var fileStream = new FileStream(storeFilePath, FileMode.Open))
@@ -31,7 +31,7 @@ namespace BookRecommendations.Repositories
                             "Year not know" :
                             year;
 
-                        var book = new Book()
+                        var book = new Sku()
                         {
                             Id = cells[0],
                             Title = cells[1],
@@ -44,17 +44,17 @@ namespace BookRecommendations.Repositories
                     }
                 }
             }
-            _books = books.AsEnumerable();
+            _skus = books.AsEnumerable();
         }
 
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Sku> GetSkus()
         {
-            return _books;
+            return _skus;
         }
 
-        public Book GetBookById(string id)
+        public Sku GetSkuById(string id)
         {
-            return _books.Where(o => o.Id == id).FirstOrDefault();
+            return _skus.Where(o => o.Id == id).FirstOrDefault();
         }
     }
 }

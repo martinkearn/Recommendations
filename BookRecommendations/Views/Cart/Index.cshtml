@@ -1,0 +1,19 @@
+﻿@model BookRecommendations.Models.Cart
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<div class="jumbotron">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+@foreach (var cartItem in Model.CartItems)
+{
+    <p><a asp-action="Book" asp-controller="Home" asp-route-id="@cartItem.Sku.Id"><strong>@cartItem.Sku.Title</strong> @cartItem.Quantity</a></p>
+}
+
+@if (Model.CartItems.Count <= 0)
+{
+    <p>Cart is empty</p>
+}

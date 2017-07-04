@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookRecommendations.Models.Book>
+﻿@model IEnumerable<BookRecommendations.Models.Sku>
 
 @{
     ViewData["Title"] = "Book Recommendations";
@@ -11,9 +11,9 @@
     <p>Click a book to see details and recommendations</p>
 </div>
 
-@foreach (var book in Model.Take(30))
+@foreach (var sku in Model.Take(30))
 {
-    <p><a asp-action="Book" asp-controller="Home" asp-route-id="@book.Id"><strong>@book.Title</strong> (@book.Author, @book.Year, @book.Publisher)</a></p>
+    <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@sku.Id"><strong>@sku.Title</strong> (@sku.Author, @sku.Year, @sku.Publisher)</a></p>
 }
 
 

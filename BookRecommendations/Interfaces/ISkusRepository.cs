@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace BookRecommendations.Interfaces
 {
-    public interface IBooksRepository
+    public interface ISkusRepository
     {
-        IEnumerable<Book> GetBooks();
+        IEnumerable<Sku> GetSkus();
 
-        Book GetBookById(string id);
+        Sku GetSkuById(string id);
     }
 }

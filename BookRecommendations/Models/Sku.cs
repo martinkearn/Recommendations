@@ -1,6 +1,6 @@
 ﻿namespace BookRecommendations.Models
 {
-    public class Book
+    public class Sku
     {
         public string Id { get; set; }
         public string Title { get; set; }

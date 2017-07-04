@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace BookRecommendations.Models
 {
-    public class Cart
+    public class CartItem
     {
-        public List<CartItem> CartItems { get; set; }
+        public Sku Sku { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

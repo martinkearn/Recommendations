@@ -2,9 +2,9 @@
 
 namespace BookRecommendations.ViewModels
 {
-    public class HomeBookViewModel
+    public class HomeSkuViewModel
     {
-        public Book Book { get; set; }
+        public Sku Sku { get; set; }
         public RecommendedItems ITIItems { get; set; }
         public RecommendedItems FBTItems { get; set; }
     }

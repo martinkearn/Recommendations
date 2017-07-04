@@ -1,4 +1,5 @@
 ﻿using BookRecommendations.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ namespace BookRecommendations.Interfaces
 {
     public interface ICartRepository
     {
-        Cart GetCart(string user);
+        Cart CreateGetCart(ISession session);
 
-        Cart AddToCart(string user, string book, int quantity);
+        Cart AddToCart(Sku sku, int quantity, ISession session);
 
-        Cart DeleteFromCart(string user, string book);
+        Cart DeleteFromCart(Sku sku, ISession session);
     }
 }
