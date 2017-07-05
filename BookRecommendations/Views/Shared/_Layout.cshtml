@@ -28,13 +28,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BookRecommendations</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Recommendations</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Cart">Cart</a></li>
+                    <li><a asp-area="" asp-controller="Cart" asp-action="Index">Cart</a></li>
                 </ul>
+                <p class="navbar-text">Built by <a href="http://martink.me">Martin Kearn</a> using <a href="https://www.microsoft.com/cognitive-services/en-us/recommendations-api">Microsoft Cognitive Services Recommendation API</a>. Code is avaliable in <a href="https://github.com/martinkearn/Cognitive-Samples/tree/master/Recommendations/ASP.NET%20Core%201.0%20C%23">GitHub</a>.</p>
             </div>
         </div>
     </nav>
@@ -42,7 +43,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - Book Recommendations</p>
+            <p>&copy; 2017 - Recommendations</p>
         </footer>
     </div>
 

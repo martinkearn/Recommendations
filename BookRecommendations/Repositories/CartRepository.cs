@@ -28,12 +28,10 @@ namespace BookRecommendations.Repositories
 
             if (cartData == null)
             {
-                //create empty cart
+                //create and save empty cart
                 var cart = new Cart();
                 cart.CartItems = new List<CartItem>();
-
-                //serialise to session
-                session.SetString(_cartSessionLabel, JsonConvert.SerializeObject(cart));
+                SaveCart(cart, session);
 
                 //return
                 return cart;
@@ -41,7 +39,8 @@ namespace BookRecommendations.Repositories
             else
             {
                 //deserialise and return cart
-                return JsonConvert.DeserializeObject<Cart>(cartData);
+                var deserializedCart = JsonConvert.DeserializeObject<Cart>(cartData);
+                return deserializedCart;
             }
         }
 
@@ -49,7 +48,18 @@ namespace BookRecommendations.Repositories
         {
             var cart = CreateGetCart(session);
 
-            cart.CartItems.Add(new CartItem() { Sku = sku, Quantity = quantity });
+            //check if sku is already in cart, if so log the original quantity and remove from cart, refreshing local cart object
+            var existingSkusInCart = cart.CartItems.Where(o => o.Sku.Id == sku.Id);
+            var originalQuantity = 0;
+            foreach (var existingSkuInCart in existingSkusInCart)
+            {
+                originalQuantity += existingSkuInCart.Quantity;
+                cart = DeleteFromCart(existingSkuInCart.Sku, session);
+            }
+
+            cart.CartItems.Add(new CartItem() { Sku = sku, Quantity = originalQuantity + quantity });
+
+            SaveCart(cart, session);
 
             return cart;
         }
@@ -58,14 +68,22 @@ namespace BookRecommendations.Repositories
         {
             var cart = CreateGetCart(session);
 
-            //find item to remove
-            var itemToRemove = cart.CartItems.SingleOrDefault(r => r.Sku.Id == sku.Id);
+            //find items to remove
+            var itemsToRemove = cart.CartItems.Where(o => o.Sku.Id == sku.Id);
 
-            //remove it
-            if (itemToRemove != null)
-                cart.CartItems.Remove(itemToRemove);
+            //remove them
+            for (int i = 0; i < itemsToRemove.Count(); i++)
+                cart.CartItems.RemoveAt(i);
+
+            SaveCart(cart, session);
 
             return cart;
+        }
+
+        private void SaveCart(Cart cart, ISession session)
+        {
+            var serializedCart = JsonConvert.SerializeObject(cart);
+            session.SetString(_cartSessionLabel, serializedCart);
         }
 
     }

@@ -10,10 +10,12 @@ namespace BookRecommendations.Controllers
 {
     public class CartController : Controller
     {
+        private readonly ISkusRepository _skus;
         private readonly ICartRepository _cart;
 
-        public CartController(ICartRepository cart)
+        public CartController(ISkusRepository skusRepository, ICartRepository cart)
         {
+            _skus = skusRepository;
             _cart = cart;
         }
 
@@ -23,9 +25,17 @@ namespace BookRecommendations.Controllers
             return View(cart);
         }
 
-        public RedirectToActionResult Add(Sku sku, int quantity)
+        public RedirectToActionResult Add(string id)
         {
-            var cart = _cart.AddToCart(sku, quantity, HttpContext.Session);
+            var sku = _skus.GetSkuById(id);
+            var cart = _cart.AddToCart(sku, 1, HttpContext.Session);
+            return RedirectToAction("Index");
+        }
+
+        public RedirectToActionResult Remove(string id)
+        {
+            var sku = _skus.GetSkuById(id);
+            var cart = _cart.DeleteFromCart(sku, HttpContext.Session);
             return RedirectToAction("Index");
         }
     }
