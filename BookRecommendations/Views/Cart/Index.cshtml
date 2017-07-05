@@ -1,4 +1,4 @@
-﻿@model BookRecommendations.Models.Cart
+﻿@model BookRecommendations.ViewModels.CartIndexViewModel
 
 @{
     ViewData["Title"] = "Cart";
@@ -19,7 +19,7 @@
             <td>Remove</td>
         </tr>
     </thead>
-    @foreach (var cartItem in Model.CartItems)
+    @foreach (var cartItem in Model.Cart.CartItems)
     {
         <tr>
             <td><a asp-action="Sku" asp-controller="Home" asp-route-id="@cartItem.Sku.Id"><strong>@cartItem.Sku.Title</strong> by @cartItem.Sku.Author</a></td>
@@ -29,20 +29,36 @@
             <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.Sku.Id" class="btn btn-default btn-xs">Remove</a></td>
         </tr>
     }
+    @if (Model.Cart.CartItems.Count <= 0)
+    {
+        <tr>
+            <td colspan="5">Cart is empty</td>
+        </tr>
+    }
     <tfoot>
         <tr>
             <td></td>
-            <td><strong>@Model.TotalQuantity</strong></td>
+            <td><strong>@Model.Cart.TotalQuantity</strong></td>
             <td></td>
-            <td><strong>@Model.TotalPrice.ToString("c")</strong></td>
+            <td><strong>@Model.Cart.TotalPrice.ToString("c")</strong></td>
             <td></td>
         </tr>
     </tfoot>
 </table>
 
-
-
-@if (Model.CartItems.Count <= 0)
+<h2>Recomendations for cart</h2>
+@if (Model.ITIItems.recommendedItems.Count() == 0)
 {
-    <p>Cart is empty</p>
+    <p>There are no 'Item-to-item' recommendations for this book</p>
 }
+else
+{
+    @foreach (var recommendedItem in Model.ITIItems.recommendedItems)
+    {
+        <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@recommendedItem.items.FirstOrDefault().id"><strong>@recommendedItem.items.FirstOrDefault().name</strong></a> with a rating of '@Math.Round(recommendedItem.rating, 3)' because @recommendedItem.reasoning.FirstOrDefault()</p>
+    }
+}
+
+
+
+

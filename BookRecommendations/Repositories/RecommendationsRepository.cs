@@ -25,13 +25,13 @@ namespace BookRecommendations.Repositories
         /// <summary>
         /// Helper function to call the Cognitive Recommendations API with an Item-to-Item build
         /// </summary>
-        /// <param name="id">ItemId to seed recommendations on</param>
+        /// <param name="ids">Comma seperated list of ItemId's to seed recommendations on</param>
         /// <param name="numberOfResults">How many results to return</param>
         /// <param name="minimalScore">Minimal score for results to be included</param>
         /// <returns>RecomendedItems object - a list of RecommendItems</returns>
-        public async Task<RecommendedItems> GetITIItems(string id, string numberOfResults, string minimalScore)
+        public async Task<RecommendedItems> GetITIItems(string ids, string numberOfResults, string minimalScore)
         {
-            var responseContent = await CallRecomendationsApi(id, numberOfResults, minimalScore, _appSettings.RecommendationsApiITIBuildId);
+            var responseContent = await CallRecommendationsApi(ids, numberOfResults, minimalScore, _appSettings.RecommendationsApiITIBuildId);
             var recomendedItems = JsonConvert.DeserializeObject<RecommendedItems>(responseContent);
             return recomendedItems;
         }
@@ -45,16 +45,16 @@ namespace BookRecommendations.Repositories
         /// <returns>RecomendedItems object - a list of RecommendItems</returns>
         public async Task<RecommendedItems> GetFBTItems(string id, string numberOfResults, string minimalScore)
         {
-            var responseContent = await CallRecomendationsApi(id, numberOfResults, minimalScore, _appSettings.RecommendationsApiFBTBuildId);
+            var responseContent = await CallRecommendationsApi(id, numberOfResults, minimalScore, _appSettings.RecommendationsApiFBTBuildId);
             var recomendedItems = JsonConvert.DeserializeObject<RecommendedItems>(responseContent);
             return recomendedItems;
         }
 
-        private async Task<string> CallRecomendationsApi(string id, string numberOfResults, string minimalScore, string buildId)
+        private async Task<string> CallRecommendationsApi(string ids, string numberOfResults, string minimalScore, string buildId)
         {
             //construct API parameters
             var parameters = new Dictionary<string, string> {
-                { "itemIds", id},
+                { "itemIds", ids},
                 { "numberOfResults", numberOfResults },
                 { "minimalScore", minimalScore },
             };
