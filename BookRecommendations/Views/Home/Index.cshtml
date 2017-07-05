@@ -13,7 +13,7 @@
 
 @foreach (var sku in Model.Take(30))
 {
-    <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@sku.Id"><strong>@sku.Title</strong> (@sku.Author, @sku.Year, @sku.Publisher)</a></p>
+    <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@sku.Id"><strong>@sku.Title</strong> (@sku.Author, @sku.Year, @sku.Publisher)</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@sku.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
 }
 
 

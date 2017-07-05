@@ -6,10 +6,10 @@
 
 <div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
-    <p>Cart is stored in session state so will be discarded when the browser is closed.</p>
+    <p>Cart data is stored in session state so will be discarded when the browser is closed.</p>
 </div>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <td>Sku</td>
@@ -22,7 +22,7 @@
         <tr>
             <td><a asp-action="Sku" asp-controller="Home" asp-route-id="@cartItem.Sku.Id"><strong>@cartItem.Sku.Title</strong> by @cartItem.Sku.Author</a></td>
             <td>@cartItem.Quantity</td>
-            <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.Sku.Id">Remove</a></td>
+            <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.Sku.Id" class="btn btn-default btn-xs">Remove</a></td>
         </tr>
     }
 </table>

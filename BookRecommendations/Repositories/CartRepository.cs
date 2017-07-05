@@ -69,11 +69,11 @@ namespace BookRecommendations.Repositories
             var cart = CreateGetCart(session);
 
             //find items to remove
-            var itemsToRemove = cart.CartItems.Where(o => o.Sku.Id == sku.Id);
+            var itemToRemove = cart.CartItems.Where(o => o.Sku.Id == sku.Id).FirstOrDefault();
 
             //remove them
-            for (int i = 0; i < itemsToRemove.Count(); i++)
-                cart.CartItems.RemoveAt(i);
+            if (itemToRemove != null)
+                cart.CartItems.Remove(itemToRemove);
 
             SaveCart(cart, session);
 
