@@ -59,6 +59,9 @@ namespace BookRecommendations.Repositories
 
             cart.CartItems.Add(new CartItem() { Sku = sku, Quantity = originalQuantity + quantity });
 
+            //update totals
+            cart = UpdateCartTotals(cart);
+
             SaveCart(cart, session);
 
             return cart;
@@ -75,6 +78,9 @@ namespace BookRecommendations.Repositories
             if (itemToRemove != null)
                 cart.CartItems.Remove(itemToRemove);
 
+            //update totals
+            cart = UpdateCartTotals(cart);
+
             SaveCart(cart, session);
 
             return cart;
@@ -84,6 +90,23 @@ namespace BookRecommendations.Repositories
         {
             var serializedCart = JsonConvert.SerializeObject(cart);
             session.SetString(_cartSessionLabel, serializedCart);
+        }
+
+        private Cart UpdateCartTotals(Cart cart)
+        {
+            var totalQuantity = 0;
+            decimal totalPrice = 0;
+
+            foreach (var cartItem in cart.CartItems)
+            {
+                totalQuantity += cartItem.Quantity;
+                totalPrice += cartItem.Sku.Price * cartItem.Quantity;
+            }
+
+            cart.TotalQuantity = totalQuantity;
+            cart.TotalPrice = totalPrice;
+
+            return cart;
         }
 
     }

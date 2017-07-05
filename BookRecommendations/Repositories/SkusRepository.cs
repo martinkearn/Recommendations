@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System;
 
 namespace BookRecommendations.Repositories
 {
@@ -14,6 +15,7 @@ namespace BookRecommendations.Repositories
 
         public SkusRepository(IHostingEnvironment environment)
         {
+            Random random = new Random();
             var books = new List<Sku>();
             var rootPath = environment.ContentRootPath;
             var storeFilePath = rootPath + "/wwwroot/bookscatalog.txt";
@@ -31,6 +33,9 @@ namespace BookRecommendations.Repositories
                             "Year not know" :
                             year;
 
+                        //create a new random price as it is not in the dataset
+                        var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
+
                         var book = new Sku()
                         {
                             Id = cells[0],
@@ -38,7 +43,8 @@ namespace BookRecommendations.Repositories
                             Type = cells[2],
                             Author = cells[3].Substring(cells[3].IndexOf('=') + 1),
                             Publisher = cells[4].Substring(cells[4].IndexOf('=') + 1),
-                            Year = yearLabel
+                            Year = yearLabel,
+                            Price = price
                         };
                         books.Add(book);
                     }

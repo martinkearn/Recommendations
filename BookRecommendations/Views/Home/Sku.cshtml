@@ -8,6 +8,7 @@
     <h1>@ViewData["Title"]</h1>
     <p>By <strong>@Model.Sku.Author</strong>. Published with <strong>@Model.Sku.Publisher</strong> in <strong>@Model.Sku.Year</strong></p>
     <p>ID: <strong>@Model.Sku.Id</strong></p>
+    <p>@Model.Sku.Price.ToString("c")</p>
     <a asp-action="index" class="btn btn-default">See all books</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Sku.Id" class="btn btn-primary">Add to cart</a>
 </div>
 

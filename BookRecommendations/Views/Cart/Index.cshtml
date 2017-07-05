@@ -14,6 +14,8 @@
         <tr>
             <td>Sku</td>
             <td>Quantity</td>
+            <td>Unit Price</td>
+            <td>Total Price</td>
             <td>Remove</td>
         </tr>
     </thead>
@@ -22,9 +24,18 @@
         <tr>
             <td><a asp-action="Sku" asp-controller="Home" asp-route-id="@cartItem.Sku.Id"><strong>@cartItem.Sku.Title</strong> by @cartItem.Sku.Author</a></td>
             <td>@cartItem.Quantity</td>
+            <td>@cartItem.Sku.Price.ToString("c")</td>
+            <td>@((cartItem.Sku.Price * cartItem.Quantity).ToString("c"))</td>
             <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.Sku.Id" class="btn btn-default btn-xs">Remove</a></td>
         </tr>
     }
+    <tr>
+        <td></td>
+        <td><strong>@Model.TotalQuantity</strong></td>
+        <td></td>
+        <td><strong>@Model.TotalPrice.ToString("c")</strong></td>
+        <td></td>
+    </tr>
 </table>
 
 

@@ -8,5 +8,9 @@ namespace BookRecommendations.Models
     public class Cart
     {
         public List<CartItem> CartItems { get; set; }
+
+        public int TotalQuantity { get; set; }
+
+        public decimal TotalPrice { get; set; }
     }
 }
