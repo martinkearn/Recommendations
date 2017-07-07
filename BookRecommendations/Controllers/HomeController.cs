@@ -13,6 +13,7 @@ namespace BookRecommendations.Controllers
         private readonly ISkusRepository _skus;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
+        private const int _pageSize = 20; 
 
         public HomeController(ISkusRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
@@ -21,10 +22,37 @@ namespace BookRecommendations.Controllers
             _cart = cart;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var allBooks = _skus.GetSkus();
-            return View(allBooks);
+            var allSkus = _skus.GetSkus();
+     
+            //get page of skus
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var numberToSkip = pageNumber * _pageSize;
+
+            var pageOfSkus = (pageNumber ==1) ?
+                allSkus.Take(_pageSize) :
+                allSkus.Skip(numberToSkip).Take(_pageSize);
+
+            //paging values
+            var totalPages = allSkus.Count() / _pageSize;
+            var totalSkus = allSkus.Count();
+            var nextPage = pageNumber + 1;
+            var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
+
+            //construct view model
+            var vm = new HomeIndexViewModel()
+            {
+                Skus = pageOfSkus,
+                CurrentPage = pageNumber,
+                TotalPages = totalPages,
+                TotalSkus = totalSkus,
+                NextPage = nextPage,
+                PreviousPage = previousPage
+            };
+
+            //return view
+            return View(vm);
         }
 
         public async Task<IActionResult> Sku(string id)

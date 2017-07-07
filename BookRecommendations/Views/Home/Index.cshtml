@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookRecommendations.Models.Sku>
+﻿@model BookRecommendations.ViewModels.HomeIndexViewModel
 
 @{
     ViewData["Title"] = "Book Recommendations";
@@ -7,13 +7,13 @@
 <div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
     <p>A catalog of books with author, publisher and year of publication.</p>
-    <p>Shows only the first 30 books</p>
     <p>Click a book to see details and recommendations</p>
 </div>
 
-@foreach (var sku in Model.Take(30))
+@foreach (var sku in Model.Skus)
 {
     <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@sku.Id"><strong>@sku.Title</strong> by @sku.Author, @sku.Price.ToString("c")</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@sku.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
 }
 
-
+<hr />
+<p><a asp-action="Index" asp-controller="home" asp-route-page="@Model.PreviousPage">< Previous</a> @Model.CurrentPage of @Model.TotalPages <a asp-action="Index" asp-controller="home" asp-route-page="@Model.NextPage">Next ></a></p>
