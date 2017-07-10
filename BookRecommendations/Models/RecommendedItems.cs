@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BookRecommendations.Models
+namespace Recommendations.Models
 {
     public class RecommendedItems
     {

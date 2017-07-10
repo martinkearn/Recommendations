@@ -1,6 +1,6 @@
-﻿using BookRecommendations.Models;
+﻿using Recommendations.Models;
 
-namespace BookRecommendations.ViewModels
+namespace Recommendations.ViewModels
 {
     public class HomeSkuViewModel
     {

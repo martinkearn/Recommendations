@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using BookRecommendations.Interfaces;
-using BookRecommendations.Models;
+using Recommendations.Interfaces;
+using Recommendations.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System;
 
-namespace BookRecommendations.Repositories
+namespace Recommendations.Repositories
 {
     public class SkusRepository : ISkusRepository
     {

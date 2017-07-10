@@ -1,5 +1,5 @@
-﻿using BookRecommendations.Interfaces;
-using BookRecommendations.Models;
+﻿using Recommendations.Interfaces;
+using Recommendations.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Options;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookRecommendations.Repositories
+namespace Recommendations.Repositories
 {
     public class CartRepository : ICartRepository
     {

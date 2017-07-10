@@ -1,11 +1,11 @@
-﻿using BookRecommendations.Models;
+﻿using Recommendations.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookRecommendations.Interfaces
+namespace Recommendations.Interfaces
 {
     public interface ICartRepository
     {

@@ -1,7 +1,7 @@
-﻿using BookRecommendations.Models;
+﻿using Recommendations.Models;
 using System.Threading.Tasks;
 
-namespace BookRecommendations.Interfaces
+namespace Recommendations.Interfaces
 {
     public interface IRecommendationsRepository
     {

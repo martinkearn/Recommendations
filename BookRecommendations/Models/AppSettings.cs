@@ -1,4 +1,4 @@
-﻿namespace BookRecommendations.Models
+﻿namespace Recommendations.Models
 {
     public class AppSettings
     {

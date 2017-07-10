@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using BookRecommendations.Models;
-using BookRecommendations.Interfaces;
-using BookRecommendations.Repositories;
+using Recommendations.Models;
+using Recommendations.Interfaces;
+using Recommendations.Repositories;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace BookRecommendations
+namespace Recommendations
 {
     public class Startup
     {

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using BookRecommendations.Interfaces;
-using BookRecommendations.Models;
+using Recommendations.Interfaces;
+using Recommendations.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace BookRecommendations.Repositories
+namespace Recommendations.Repositories
 {
     public class RecommendationsRepository : IRecommendationsRepository
     {

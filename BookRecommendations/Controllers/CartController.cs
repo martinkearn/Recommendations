@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using BookRecommendations.Interfaces;
-using BookRecommendations.Models;
-using BookRecommendations.ViewModels;
+using Recommendations.Interfaces;
+using Recommendations.Models;
+using Recommendations.ViewModels;
 
-namespace BookRecommendations.Controllers
+namespace Recommendations.Controllers
 {
     public class CartController : Controller
     {

@@ -1,8 +1,8 @@
-﻿using BookRecommendations.Models;
+﻿using Recommendations.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
-namespace BookRecommendations.ViewModels
+namespace Recommendations.ViewModels
 {
     public class HomeIndexViewModel
     {
