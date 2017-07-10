@@ -76,7 +76,7 @@ namespace BookRecommendations.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> Categories()
+        public IActionResult Categories()
         {
             var categories = _skus.GetSkuCategories();
 
@@ -90,7 +90,7 @@ namespace BookRecommendations.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> Category(string id)
+        public IActionResult Category(string id)
         {
 
             //construct view model
