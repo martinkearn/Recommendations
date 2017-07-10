@@ -78,15 +78,31 @@ namespace BookRecommendations.Controllers
 
         public async Task<IActionResult> Categories()
         {
+            var categories = _skus.GetSkuCategories();
+
             //construct view model
             var vm = new HomeCategoriesViewModel()
             {
+                Categories = categories
             };
 
             //return view
             return View(vm);
         }
-        
+
+        public async Task<IActionResult> Category(string id)
+        {
+
+            //construct view model
+            var vm = new HomeCategoryViewModel()
+            {
+                 CategoryName = id
+            };
+
+            //return view
+            return View(vm);
+        }
+
 
         public IActionResult Error()
         {

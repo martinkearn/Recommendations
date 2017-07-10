@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace BookRecommendations.ViewModels
 {
-    public class HomeCategoriesViewModel
+    public class HomeCategoryViewModel
     {
-        public IEnumerable<string> Categories { get; set; }
+        public string CategoryName { get; set; }
     }
 }

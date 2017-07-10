@@ -8,3 +8,8 @@
     <h1>@ViewData["Title"]</h1>
     <p>The various categories for skus</p>
 </div>
+
+@foreach (var category in Model.Categories)
+{
+    <p><a asp-action="Category" asp-controller="Home" asp-route-id="@category">@category</a></p>
+}

@@ -8,5 +8,7 @@ namespace BookRecommendations.Interfaces
         IEnumerable<Sku> GetSkus();
 
         Sku GetSkuById(string id);
+
+        IEnumerable<string> GetSkuCategories();
     }
 }

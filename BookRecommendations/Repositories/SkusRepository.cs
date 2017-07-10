@@ -16,7 +16,7 @@ namespace BookRecommendations.Repositories
         public SkusRepository(IHostingEnvironment environment)
         {
             Random random = new Random();
-            var books = new List<Sku>();
+            var skus = new List<Sku>();
             var rootPath = environment.ContentRootPath;
             var storeFilePath = rootPath + "/wwwroot/bookscatalog.txt";
             using (var fileStream = new FileStream(storeFilePath, FileMode.Open))
@@ -36,7 +36,7 @@ namespace BookRecommendations.Repositories
                         //create a new random price as it is not in the dataset
                         var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
 
-                        var book = new Sku()
+                        var sku = new Sku()
                         {
                             Id = cells[0],
                             Title = cells[1],
@@ -46,11 +46,11 @@ namespace BookRecommendations.Repositories
                             Year = yearLabel,
                             Price = price
                         };
-                        books.Add(book);
+                        skus.Add(sku);
                     }
                 }
             }
-            _skus = books.AsEnumerable();
+            _skus = skus.AsEnumerable();
         }
 
         public IEnumerable<Sku> GetSkus()
@@ -61,6 +61,12 @@ namespace BookRecommendations.Repositories
         public Sku GetSkuById(string id)
         {
             return _skus.Where(o => o.Id == id).FirstOrDefault();
+        }
+
+        public IEnumerable<string> GetSkuCategories()
+        {
+            var uniqueTypes = _skus.Select(o => o.Type).Distinct().ToList();
+            return uniqueTypes;
         }
     }
 }
