@@ -57,7 +57,7 @@ namespace Recommendations.Controllers
 
         public async Task<IActionResult> Sku(string id)
         {
-            //get this book
+            //get this sku
             var sku = _skus.GetSkuById(id);
 
             //get ITI and FBT items
@@ -90,13 +90,34 @@ namespace Recommendations.Controllers
             return View(vm);
         }
 
-        public IActionResult Category(string id)
+        public IActionResult Category(string id, int? page)
         {
+            var allSkus = _skus.GetSkus().Where(o => o.Type.ToLower() == id.ToLower());
+
+            //get page of skus
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var numberToSkip = pageNumber * _pageSize;
+
+            var pageOfSkus = (pageNumber == 1) ?
+                allSkus.Take(_pageSize) :
+                allSkus.Skip(numberToSkip).Take(_pageSize);
+
+            //paging values
+            var totalPages = allSkus.Count() / _pageSize;
+            var totalSkus = allSkus.Count();
+            var nextPage = pageNumber + 1;
+            var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
             //construct view model
             var vm = new HomeCategoryViewModel()
             {
-                 CategoryName = id
+                CategoryName = id,
+                Skus = pageOfSkus,
+                CurrentPage = pageNumber,
+                TotalPages = totalPages,
+                TotalSkus = totalSkus,
+                NextPage = nextPage,
+                PreviousPage = previousPage
             };
 
             //return view

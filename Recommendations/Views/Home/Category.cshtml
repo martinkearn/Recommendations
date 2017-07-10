@@ -6,4 +6,14 @@
 
 <div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
+    <p>Showing all skus in this category</p>
+    <p>Click a sku to see details and recommendations</p>
 </div>
+
+@foreach (var sku in Model.Skus)
+{
+    <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@sku.Id">@sku.Title</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@sku.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
+}
+
+<hr />
+<p><a asp-action="Category" asp-controller="home" asp-route-page="@Model.PreviousPage">< Previous</a> @Model.CurrentPage of @Model.TotalPages <a asp-action="Category" asp-controller="home" asp-route-page="@Model.NextPage">Next ></a></p>
