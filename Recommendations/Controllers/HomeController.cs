@@ -124,7 +124,6 @@ namespace Recommendations.Controllers
             return View(vm);
         }
 
-
         public IActionResult Error()
         {
             return View();
