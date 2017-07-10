@@ -18,7 +18,7 @@ namespace BookRecommendations.Repositories
             Random random = new Random();
             var skus = new List<Sku>();
             var rootPath = environment.ContentRootPath;
-            var storeFilePath = rootPath + "/wwwroot/bookscatalog.txt";
+            var storeFilePath = rootPath + "/wwwroot/msstore-catalog.txt";
             using (var fileStream = new FileStream(storeFilePath, FileMode.Open))
             {
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
@@ -28,10 +28,10 @@ namespace BookRecommendations.Repositories
                     {
                         var cells = line.Split(',');
 
-                        var year = cells[5].Substring(cells[5].IndexOf('=') + 1);
-                        var yearLabel = (year == "0") ?
-                            "Year not know" :
-                            year;
+                        //var year = cells[5].Substring(cells[5].IndexOf('=') + 1);
+                        //var yearLabel = (year == "0") ?
+                        //    "Year not know" :
+                        //    year;
 
                         //create a new random price as it is not in the dataset
                         var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
@@ -41,9 +41,10 @@ namespace BookRecommendations.Repositories
                             Id = cells[0],
                             Title = cells[1],
                             Type = cells[2],
-                            Author = cells[3].Substring(cells[3].IndexOf('=') + 1),
-                            Publisher = cells[4].Substring(cells[4].IndexOf('=') + 1),
-                            Year = yearLabel,
+                            Description = string.Empty,
+                            //Author = cells[3].Substring(cells[3].IndexOf('=') + 1),
+                            //Publisher = cells[4].Substring(cells[4].IndexOf('=') + 1),
+                            //Year = yearLabel,
                             Price = price
                         };
                         skus.Add(sku);

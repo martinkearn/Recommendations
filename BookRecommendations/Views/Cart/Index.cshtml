@@ -22,7 +22,7 @@
     @foreach (var cartItem in Model.Cart.CartItems)
     {
         <tr>
-            <td><a asp-action="Sku" asp-controller="Home" asp-route-id="@cartItem.Sku.Id"><strong>@cartItem.Sku.Title</strong> by @cartItem.Sku.Author</a></td>
+            <td><a asp-action="Sku" asp-controller="Home" asp-route-id="@cartItem.Sku.Id">@cartItem.Sku.Title</a></td>
             <td>@cartItem.Quantity</td>
             <td>@cartItem.Sku.Price.ToString("c")</td>
             <td>@((cartItem.Sku.Price * cartItem.Quantity).ToString("c"))</td>
