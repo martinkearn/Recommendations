@@ -76,6 +76,18 @@ namespace BookRecommendations.Controllers
             return View(vm);
         }
 
+        public async Task<IActionResult> Categories()
+        {
+            //construct view model
+            var vm = new HomeCategoriesViewModel()
+            {
+            };
+
+            //return view
+            return View(vm);
+        }
+        
+
         public IActionResult Error()
         {
             return View();
