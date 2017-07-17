@@ -11,11 +11,11 @@ namespace Recommendations.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ISkusRepository _skus;
+        private readonly ICatalogRepository _skus;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
 
-        public CartController(ISkusRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public CartController(ICatalogRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
             _skus = skusRepository;
             _recommendations = recommendationsRepository;

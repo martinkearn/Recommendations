@@ -9,14 +9,14 @@ using System;
 
 namespace Recommendations.Repositories
 {
-    public class SkusRepository : ISkusRepository
+    public class CatalogRepository : ICatalogRepository
     {
-        private readonly IEnumerable<Sku> _skus;
+        private readonly IEnumerable<CatalogItem> _skus;
 
-        public SkusRepository(IHostingEnvironment environment)
+        public CatalogRepository(IHostingEnvironment environment)
         {
             Random random = new Random();
-            var skus = new List<Sku>();
+            var skus = new List<CatalogItem>();
             var rootPath = environment.ContentRootPath;
             var storeFilePath = rootPath + "/wwwroot/msstore-catalog.txt";
             using (var fileStream = new FileStream(storeFilePath, FileMode.Open))
@@ -31,7 +31,7 @@ namespace Recommendations.Repositories
                         //create a new random price as it is not in the dataset
                         var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
 
-                        var sku = new Sku()
+                        var sku = new CatalogItem()
                         {
                             Id = cells[0],
                             Title = cells[1],
@@ -46,12 +46,12 @@ namespace Recommendations.Repositories
             _skus = skus.AsEnumerable();
         }
 
-        public IEnumerable<Sku> GetSkus()
+        public IEnumerable<CatalogItem> GetSkus()
         {
             return _skus;
         }
 
-        public Sku GetSkuById(string id)
+        public CatalogItem GetSkuById(string id)
         {
             return _skus.Where(o => o.Id == id).FirstOrDefault();
         }

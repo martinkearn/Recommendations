@@ -1,6 +1,6 @@
 ﻿namespace Recommendations.Models
 {
-    public class Sku
+    public class CatalogItem
     {
         public string Id { get; set; }
         public string Title { get; set; }

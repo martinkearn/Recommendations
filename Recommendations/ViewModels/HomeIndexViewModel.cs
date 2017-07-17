@@ -6,7 +6,7 @@ namespace Recommendations.ViewModels
 {
     public class HomeIndexViewModel
     {
-        public IEnumerable<Sku> Skus { get; set; }
+        public IEnumerable<CatalogItem> Skus { get; set; }
 
         public int CurrentPage { get; set; }
 

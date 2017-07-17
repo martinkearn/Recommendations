@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Recommendations.Interfaces
 {
-    public interface ISkusRepository
+    public interface ICatalogRepository
     {
-        IEnumerable<Sku> GetSkus();
+        IEnumerable<CatalogItem> GetSkus();
 
-        Sku GetSkuById(string id);
+        CatalogItem GetSkuById(string id);
 
         IEnumerable<string> GetSkuCategories();
     }

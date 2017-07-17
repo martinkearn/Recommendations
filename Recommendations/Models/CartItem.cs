@@ -7,7 +7,7 @@ namespace Recommendations.Models
 {
     public class CartItem
     {
-        public Sku Sku { get; set; }
+        public CatalogItem Sku { get; set; }
 
         public int Quantity { get; set; }
     }

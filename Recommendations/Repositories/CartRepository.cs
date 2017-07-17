@@ -44,7 +44,7 @@ namespace Recommendations.Repositories
             }
         }
 
-        public Cart AddToCart(Sku sku, int quantity, ISession session)
+        public Cart AddToCart(CatalogItem sku, int quantity, ISession session)
         {
             var cart = CreateGetCart(session);
 
@@ -67,7 +67,7 @@ namespace Recommendations.Repositories
             return cart;
         }
 
-        public Cart DeleteFromCart(Sku sku, ISession session)
+        public Cart DeleteFromCart(CatalogItem sku, ISession session)
         {
             var cart = CreateGetCart(session);
 

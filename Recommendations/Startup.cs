@@ -44,7 +44,7 @@ namespace Recommendations
 
 
             // Add repositories
-            services.AddSingleton<ISkusRepository, SkusRepository>();
+            services.AddSingleton<ICatalogRepository, CatalogRepository>();
             services.AddSingleton<IRecommendationsRepository, RecommendationsRepository>();
             services.AddSingleton<ICartRepository, CartRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();

@@ -10,12 +10,12 @@ namespace Recommendations.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISkusRepository _skus;
+        private readonly ICatalogRepository _skus;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
         private const int _pageSize = 20; 
 
-        public HomeController(ISkusRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public HomeController(ICatalogRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
             _skus = skusRepository;
             _recommendations = recommendationsRepository;
