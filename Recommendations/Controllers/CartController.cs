@@ -11,13 +11,13 @@ namespace Recommendations.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ICatalogRepository _skus;
+        private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
 
-        public CartController(ICatalogRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public CartController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
-            _skus = skusRepository;
+            _catalogItems = catalogItemsRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
         }
@@ -26,7 +26,7 @@ namespace Recommendations.Controllers
         {
             var cart = _cart.CreateGetCart(HttpContext.Session);
 
-            var ids = string.Join(",", cart.CartItems.Select(o => o.Sku.Id));
+            var ids = string.Join(",", cart.CartItems.Select(o => o.CatalogItem.Id));
             var itiItems = await _recommendations.GetITIItems(ids, "5", "0");
 
             //construct view model
@@ -42,15 +42,15 @@ namespace Recommendations.Controllers
 
         public RedirectToActionResult Add(string id)
         {
-            var sku = _skus.GetSkuById(id);
-            var cart = _cart.AddToCart(sku, 1, HttpContext.Session);
+            var catalogItem = _catalogItems.GetcatalogItemById(id);
+            var cart = _cart.AddToCart(catalogItem, 1, HttpContext.Session);
             return RedirectToAction("Index");
         }
 
         public RedirectToActionResult Remove(string id)
         {
-            var sku = _skus.GetSkuById(id);
-            var cart = _cart.DeleteFromCart(sku, HttpContext.Session);
+            var catalogItem = _catalogItems.GetcatalogItemById(id);
+            var cart = _cart.DeleteFromCart(catalogItem, HttpContext.Session);
             return RedirectToAction("Index");
         }
     }

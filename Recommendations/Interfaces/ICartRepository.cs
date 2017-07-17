@@ -11,8 +11,8 @@ namespace Recommendations.Interfaces
     {
         Cart CreateGetCart(ISession session);
 
-        Cart AddToCart(CatalogItem sku, int quantity, ISession session);
+        Cart AddToCart(CatalogItem catalogItem, int quantity, ISession session);
 
-        Cart DeleteFromCart(CatalogItem sku, ISession session);
+        Cart DeleteFromCart(CatalogItem catalogItem, ISession session);
     }
 }

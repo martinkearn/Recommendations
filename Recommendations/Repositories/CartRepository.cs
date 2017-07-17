@@ -44,20 +44,20 @@ namespace Recommendations.Repositories
             }
         }
 
-        public Cart AddToCart(CatalogItem sku, int quantity, ISession session)
+        public Cart AddToCart(CatalogItem catalogItem, int quantity, ISession session)
         {
             var cart = CreateGetCart(session);
 
-            //check if sku is already in cart, if so log the original quantity and remove from cart, refreshing local cart object
-            var existingSkusInCart = cart.CartItems.Where(o => o.Sku.Id == sku.Id);
+            //check if catalogItem is already in cart, if so log the original quantity and remove from cart, refreshing local cart object
+            var existingcatalogItemsInCart = cart.CartItems.Where(o => o.CatalogItem.Id == catalogItem.Id);
             var originalQuantity = 0;
-            foreach (var existingSkuInCart in existingSkusInCart)
+            foreach (var existingcatalogItemInCart in existingcatalogItemsInCart)
             {
-                originalQuantity += existingSkuInCart.Quantity;
-                cart = DeleteFromCart(existingSkuInCart.Sku, session);
+                originalQuantity += existingcatalogItemInCart.Quantity;
+                cart = DeleteFromCart(existingcatalogItemInCart.CatalogItem, session);
             }
 
-            cart.CartItems.Add(new CartItem() { Sku = sku, Quantity = originalQuantity + quantity });
+            cart.CartItems.Add(new CartItem() { CatalogItem = catalogItem, Quantity = originalQuantity + quantity });
 
             //update totals
             cart = UpdateCartTotals(cart);
@@ -67,12 +67,12 @@ namespace Recommendations.Repositories
             return cart;
         }
 
-        public Cart DeleteFromCart(CatalogItem sku, ISession session)
+        public Cart DeleteFromCart(CatalogItem catalogItem, ISession session)
         {
             var cart = CreateGetCart(session);
 
             //find items to remove
-            var itemToRemove = cart.CartItems.Where(o => o.Sku.Id == sku.Id).FirstOrDefault();
+            var itemToRemove = cart.CartItems.Where(o => o.CatalogItem.Id == catalogItem.Id).FirstOrDefault();
 
             //remove them
             if (itemToRemove != null)
@@ -100,7 +100,7 @@ namespace Recommendations.Repositories
             foreach (var cartItem in cart.CartItems)
             {
                 totalQuantity += cartItem.Quantity;
-                totalPrice += cartItem.Sku.Price * cartItem.Quantity;
+                totalPrice += cartItem.CatalogItem.Price * cartItem.Quantity;
             }
 
             cart.TotalQuantity = totalQuantity;

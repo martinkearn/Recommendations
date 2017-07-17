@@ -10,43 +10,43 @@ namespace Recommendations.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICatalogRepository _skus;
+        private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
         private const int _pageSize = 20; 
 
-        public HomeController(ICatalogRepository skusRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
-            _skus = skusRepository;
+            _catalogItems = catalogItemsRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
         }
 
         public IActionResult Index(int? page)
         {
-            var allSkus = _skus.GetSkus();
+            var allcatalogItems = _catalogItems.GetcatalogItems();
      
-            //get page of skus
+            //get page of catalogItems
             var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
             var numberToSkip = pageNumber * _pageSize;
 
-            var pageOfSkus = (pageNumber ==1) ?
-                allSkus.Take(_pageSize) :
-                allSkus.Skip(numberToSkip).Take(_pageSize);
+            var pageOfcatalogItems = (pageNumber ==1) ?
+                allcatalogItems.Take(_pageSize) :
+                allcatalogItems.Skip(numberToSkip).Take(_pageSize);
 
             //paging values
-            var totalPages = allSkus.Count() / _pageSize;
-            var totalSkus = allSkus.Count();
+            var totalPages = allcatalogItems.Count() / _pageSize;
+            var totalcatalogItems = allcatalogItems.Count();
             var nextPage = pageNumber + 1;
             var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
             //construct view model
             var vm = new HomeIndexViewModel()
             {
-                Skus = pageOfSkus,
+                catalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
-                TotalSkus = totalSkus,
+                TotalcatalogItems = totalcatalogItems,
                 NextPage = nextPage,
                 PreviousPage = previousPage
             };
@@ -55,19 +55,19 @@ namespace Recommendations.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> Sku(string id)
+        public async Task<IActionResult> CatalogItem(string id)
         {
-            //get this sku
-            var sku = _skus.GetSkuById(id);
+            //get this catalogItem
+            var catalogItem = _catalogItems.GetcatalogItemById(id);
 
             //get ITI and FBT items
             var itiItems = await _recommendations.GetITIItems(id, "5", "0");
             var fbtItems = await _recommendations.GetFBTItems(id, "5", "0");
 
             //construct view model
-            var vm = new HomeSkuViewModel()
+            var vm = new HomecatalogItemViewModel()
             {
-                Sku = sku,
+                catalogItem = catalogItem,
                 ITIItems = itiItems,
                 FBTItems = fbtItems
             };
@@ -78,7 +78,7 @@ namespace Recommendations.Controllers
 
         public IActionResult Categories()
         {
-            var categories = _skus.GetSkuCategories();
+            var categories = _catalogItems.GetCatalogItemCategories();
 
             //construct view model
             var vm = new HomeCategoriesViewModel()
@@ -92,19 +92,19 @@ namespace Recommendations.Controllers
 
         public IActionResult Category(string id, int? page)
         {
-            var allSkus = _skus.GetSkus().Where(o => o.Type.ToLower() == id.ToLower());
+            var allcatalogItems = _catalogItems.GetcatalogItems().Where(o => o.Type.ToLower() == id.ToLower());
 
-            //get page of skus
+            //get page of catalogItems
             var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
             var numberToSkip = pageNumber * _pageSize;
 
-            var pageOfSkus = (pageNumber == 1) ?
-                allSkus.Take(_pageSize) :
-                allSkus.Skip(numberToSkip).Take(_pageSize);
+            var pageOfcatalogItems = (pageNumber == 1) ?
+                allcatalogItems.Take(_pageSize) :
+                allcatalogItems.Skip(numberToSkip).Take(_pageSize);
 
             //paging values
-            var totalPages = allSkus.Count() / _pageSize;
-            var totalSkus = allSkus.Count();
+            var totalPages = allcatalogItems.Count() / _pageSize;
+            var totalcatalogItems = allcatalogItems.Count();
             var nextPage = pageNumber + 1;
             var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
@@ -112,10 +112,10 @@ namespace Recommendations.Controllers
             var vm = new HomeCategoryViewModel()
             {
                 CategoryName = id,
-                Skus = pageOfSkus,
+                catalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
-                TotalSkus = totalSkus,
+                TotalcatalogItems = totalcatalogItems,
                 NextPage = nextPage,
                 PreviousPage = previousPage
             };

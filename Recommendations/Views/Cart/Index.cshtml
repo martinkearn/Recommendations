@@ -12,7 +12,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Sku</td>
+            <td>Item</td>
             <td>Quantity</td>
             <td>Unit Price</td>
             <td>Total Price</td>
@@ -22,11 +22,11 @@
     @foreach (var cartItem in Model.Cart.CartItems)
     {
         <tr>
-            <td><a asp-action="Sku" asp-controller="Home" asp-route-id="@cartItem.Sku.Id">@cartItem.Sku.Title</a></td>
+            <td><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@cartItem.CatalogItem.Id">@cartItem.CatalogItem.Title</a></td>
             <td>@cartItem.Quantity</td>
-            <td>@cartItem.Sku.Price.ToString("c")</td>
-            <td>@((cartItem.Sku.Price * cartItem.Quantity).ToString("c"))</td>
-            <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.Sku.Id" class="btn btn-default btn-xs">Remove</a></td>
+            <td>@cartItem.CatalogItem.Price.ToString("c")</td>
+            <td>@((cartItem.CatalogItem.Price * cartItem.Quantity).ToString("c"))</td>
+            <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.CatalogItem.Id" class="btn btn-default btn-xs">Remove</a></td>
         </tr>
     }
     @if (Model.Cart.CartItems.Count <= 0)
@@ -49,13 +49,13 @@
 <h2>Recomendations for cart</h2>
 @if (Model.ITIItems.recommendedItems.Count() == 0)
 {
-    <p>There are no 'Item-to-item' recommendations for this book</p>
+    <p>There are no 'Item-to-item' recommendations for this item</p>
 }
 else
 {
     @foreach (var recommendedItem in Model.ITIItems.recommendedItems)
     {
-        <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@recommendedItem.items.FirstOrDefault().id"><strong>@recommendedItem.items.FirstOrDefault().name</strong></a> with a rating of '@Math.Round(recommendedItem.rating, 3)' because @recommendedItem.reasoning.FirstOrDefault()</p>
+        <p><a asp-action="catalogItem" asp-controller="Home" asp-route-id="@recommendedItem.items.FirstOrDefault().id"><strong>@recommendedItem.items.FirstOrDefault().name</strong></a> with a rating of '@Math.Round(recommendedItem.rating, 3)' because @recommendedItem.reasoning.FirstOrDefault()</p>
     }
 }
 

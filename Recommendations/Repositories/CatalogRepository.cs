@@ -6,19 +6,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System;
+using Microsoft.Extensions.Options;
 
 namespace Recommendations.Repositories
 {
     public class CatalogRepository : ICatalogRepository
     {
-        private readonly IEnumerable<CatalogItem> _skus;
+        private readonly IEnumerable<CatalogItem> _catalogItems;
+        private readonly AppSettings _appSettings;
 
-        public CatalogRepository(IHostingEnvironment environment)
+        public CatalogRepository(IHostingEnvironment environment, IOptions<AppSettings> appSettings)
         {
+            _appSettings = appSettings.Value;
             Random random = new Random();
-            var skus = new List<CatalogItem>();
+            var catalogItems = new List<CatalogItem>();
             var rootPath = environment.ContentRootPath;
-            var storeFilePath = rootPath + "/wwwroot/msstore-catalog.txt";
+            var storeFilePath = $"{rootPath}/wwwroot/{_appSettings.CatalogFileName}";
             using (var fileStream = new FileStream(storeFilePath, FileMode.Open))
             {
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
@@ -31,7 +34,7 @@ namespace Recommendations.Repositories
                         //create a new random price as it is not in the dataset
                         var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
 
-                        var sku = new CatalogItem()
+                        var catalogItem = new CatalogItem()
                         {
                             Id = cells[0],
                             Title = cells[1],
@@ -39,26 +42,26 @@ namespace Recommendations.Repositories
                             Description = string.Empty,
                             Price = price
                         };
-                        skus.Add(sku);
+                        catalogItems.Add(catalogItem);
                     }
                 }
             }
-            _skus = skus.AsEnumerable();
+            _catalogItems = catalogItems.AsEnumerable();
         }
 
-        public IEnumerable<CatalogItem> GetSkus()
+        public IEnumerable<CatalogItem> GetcatalogItems()
         {
-            return _skus;
+            return _catalogItems;
         }
 
-        public CatalogItem GetSkuById(string id)
+        public CatalogItem GetcatalogItemById(string id)
         {
-            return _skus.Where(o => o.Id == id).FirstOrDefault();
+            return _catalogItems.Where(o => o.Id == id).FirstOrDefault();
         }
 
-        public IEnumerable<string> GetSkuCategories()
+        public IEnumerable<string> GetCatalogItemCategories()
         {
-            var uniqueTypes = _skus.Select(o => o.Type).Distinct().ToList();
+            var uniqueTypes = _catalogItems.Select(o => o.Type).Distinct().ToList();
             return uniqueTypes;
         }
     }

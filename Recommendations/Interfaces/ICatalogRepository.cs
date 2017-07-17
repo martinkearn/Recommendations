@@ -5,10 +5,10 @@ namespace Recommendations.Interfaces
 {
     public interface ICatalogRepository
     {
-        IEnumerable<CatalogItem> GetSkus();
+        IEnumerable<CatalogItem> GetcatalogItems();
 
-        CatalogItem GetSkuById(string id);
+        CatalogItem GetcatalogItemById(string id);
 
-        IEnumerable<string> GetSkuCategories();
+        IEnumerable<string> GetCatalogItemCategories();
     }
 }

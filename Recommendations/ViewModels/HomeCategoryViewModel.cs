@@ -10,7 +10,7 @@ namespace Recommendations.ViewModels
     {
         public string CategoryName { get; set; }
 
-        public IEnumerable<CatalogItem> Skus { get; set; }
+        public IEnumerable<CatalogItem> catalogItems { get; set; }
 
         public int CurrentPage { get; set; }
 
@@ -20,6 +20,6 @@ namespace Recommendations.ViewModels
 
         public int PreviousPage { get; set; }
 
-        public int TotalSkus { get; set; }
+        public int TotalcatalogItems { get; set; }
     }
 }

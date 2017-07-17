@@ -6,13 +6,13 @@
 
 <div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
-    <p>Showing all skus in this category</p>
-    <p>Click a sku to see details and recommendations</p>
+    <p>Showing all items in this category</p>
+    <p>Click an item to see details and recommendations</p>
 </div>
 
-@foreach (var sku in Model.Skus)
+@foreach (var catalogItem in Model.catalogItems)
 {
-    <p><a asp-action="Sku" asp-controller="Home" asp-route-id="@sku.Id">@sku.Title</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@sku.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
+    <p><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">@catalogItem.Title</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
 }
 
 <hr />

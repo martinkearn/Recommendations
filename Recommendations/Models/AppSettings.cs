@@ -7,5 +7,7 @@
         public string RecommendationsApiModelId { get; set; }
         public string RecommendationsApiITIBuildId { get; set; }
         public string RecommendationsApiFBTBuildId { get; set; }
+
+        public string CatalogFileName { get; set; }
     }
 }
