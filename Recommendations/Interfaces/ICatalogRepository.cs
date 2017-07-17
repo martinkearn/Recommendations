@@ -5,9 +5,9 @@ namespace Recommendations.Interfaces
 {
     public interface ICatalogRepository
     {
-        IEnumerable<CatalogItem> GetcatalogItems();
+        IEnumerable<CatalogItem> GetCatalogItems();
 
-        CatalogItem GetcatalogItemById(string id);
+        CatalogItem GetCatalogItemById(string id);
 
         IEnumerable<string> GetCatalogItemCategories();
     }

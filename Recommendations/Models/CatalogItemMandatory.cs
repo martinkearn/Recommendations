@@ -1,13 +1,10 @@
 ﻿namespace Recommendations.Models
 {
-    public class CatalogItem
+    public partial class CatalogItem
     {
         public string Id { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }
 
-        public string Description { get; set; }
-
-        public decimal Price { get; set; }
     }
 }

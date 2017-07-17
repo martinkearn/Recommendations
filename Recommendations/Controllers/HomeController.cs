@@ -24,7 +24,7 @@ namespace Recommendations.Controllers
 
         public IActionResult Index(int? page)
         {
-            var allcatalogItems = _catalogItems.GetcatalogItems();
+            var allcatalogItems = _catalogItems.GetCatalogItems();
      
             //get page of catalogItems
             var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
@@ -58,7 +58,7 @@ namespace Recommendations.Controllers
         public async Task<IActionResult> CatalogItem(string id)
         {
             //get this catalogItem
-            var catalogItem = _catalogItems.GetcatalogItemById(id);
+            var catalogItem = _catalogItems.GetCatalogItemById(id);
 
             //get ITI and FBT items
             var itiItems = await _recommendations.GetITIItems(id, "5", "0");
@@ -92,7 +92,7 @@ namespace Recommendations.Controllers
 
         public IActionResult Category(string id, int? page)
         {
-            var allcatalogItems = _catalogItems.GetcatalogItems().Where(o => o.Type.ToLower() == id.ToLower());
+            var allcatalogItems = _catalogItems.GetCatalogItems().Where(o => o.Type.ToLower() == id.ToLower());
 
             //get page of catalogItems
             var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)

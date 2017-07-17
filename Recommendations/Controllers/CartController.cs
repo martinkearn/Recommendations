@@ -42,14 +42,14 @@ namespace Recommendations.Controllers
 
         public RedirectToActionResult Add(string id)
         {
-            var catalogItem = _catalogItems.GetcatalogItemById(id);
+            var catalogItem = _catalogItems.GetCatalogItemById(id);
             var cart = _cart.AddToCart(catalogItem, 1, HttpContext.Session);
             return RedirectToAction("Index");
         }
 
         public RedirectToActionResult Remove(string id)
         {
-            var catalogItem = _catalogItems.GetcatalogItemById(id);
+            var catalogItem = _catalogItems.GetCatalogItemById(id);
             var cart = _cart.DeleteFromCart(catalogItem, HttpContext.Session);
             return RedirectToAction("Index");
         }

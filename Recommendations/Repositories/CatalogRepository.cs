@@ -31,7 +31,8 @@ namespace Recommendations.Repositories
                     {
                         var cells = line.Split(',');
 
-                        //create a new random price as it is not in the dataset
+                        //Get/create optional Catalog Item data
+                        var description = string.Empty;
                         var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
 
                         var catalogItem = new CatalogItem()
@@ -39,7 +40,7 @@ namespace Recommendations.Repositories
                             Id = cells[0],
                             Title = cells[1],
                             Type = cells[2],
-                            Description = string.Empty,
+                            Description = description,
                             Price = price
                         };
                         catalogItems.Add(catalogItem);
@@ -49,12 +50,12 @@ namespace Recommendations.Repositories
             _catalogItems = catalogItems.AsEnumerable();
         }
 
-        public IEnumerable<CatalogItem> GetcatalogItems()
+        public IEnumerable<CatalogItem> GetCatalogItems()
         {
             return _catalogItems;
         }
 
-        public CatalogItem GetcatalogItemById(string id)
+        public CatalogItem GetCatalogItemById(string id)
         {
             return _catalogItems.Where(o => o.Id == id).FirstOrDefault();
         }
