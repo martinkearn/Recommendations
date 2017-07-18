@@ -10,7 +10,7 @@ namespace Recommendations.ViewModels
     {
         public string CategoryName { get; set; }
 
-        public IEnumerable<CatalogItem> catalogItems { get; set; }
+        public IEnumerable<CatalogItem> CatalogItems { get; set; }
 
         public int CurrentPage { get; set; }
 

@@ -47,9 +47,9 @@
 </table>
 
 <h2>Recomendations for cart</h2>
-@if (Model.ITIItems.recommendedItems.Count() == 0)
+@if (Model.ITIItems.recommendedItems == null)
 {
-    <p>There are no 'Item-to-item' recommendations for this item</p>
+    <p>There are no recommendations for this item</p>
 }
 else
 {

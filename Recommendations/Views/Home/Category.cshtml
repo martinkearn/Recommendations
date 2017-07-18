@@ -10,7 +10,7 @@
     <p>Click an item to see details and recommendations</p>
 </div>
 
-@foreach (var catalogItem in Model.catalogItems)
+@foreach (var catalogItem in Model.CatalogItems)
 {
     <p><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">@catalogItem.Title</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
 }

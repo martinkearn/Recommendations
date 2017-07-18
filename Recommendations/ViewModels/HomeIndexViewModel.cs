@@ -6,7 +6,7 @@ namespace Recommendations.ViewModels
 {
     public class HomeIndexViewModel
     {
-        public IEnumerable<CatalogItem> catalogItems { get; set; }
+        public IEnumerable<CatalogItem> CatalogItems { get; set; }
 
         public int CurrentPage { get; set; }
 

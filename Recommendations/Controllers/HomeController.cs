@@ -43,7 +43,7 @@ namespace Recommendations.Controllers
             //construct view model
             var vm = new HomeIndexViewModel()
             {
-                catalogItems = pageOfcatalogItems,
+                CatalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
                 TotalcatalogItems = totalcatalogItems,
@@ -62,14 +62,12 @@ namespace Recommendations.Controllers
 
             //get ITI and FBT items
             var itiItems = await _recommendations.GetITIItems(id, "5", "0");
-            var fbtItems = await _recommendations.GetFBTItems(id, "5", "0");
 
             //construct view model
-            var vm = new HomecatalogItemViewModel()
+            var vm = new HomeCatalogItemViewModel()
             {
-                catalogItem = catalogItem,
-                ITIItems = itiItems,
-                FBTItems = fbtItems
+                CatalogItem = catalogItem,
+                ITIItems = itiItems
             };
 
             //return view
@@ -112,7 +110,7 @@ namespace Recommendations.Controllers
             var vm = new HomeCategoryViewModel()
             {
                 CategoryName = id,
-                catalogItems = pageOfcatalogItems,
+                CatalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
                 TotalcatalogItems = totalcatalogItems,
