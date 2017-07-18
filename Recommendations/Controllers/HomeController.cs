@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recommendations.Interfaces;
 using Recommendations.ViewModels;
+using Recommendations.Models;
 
 namespace Recommendations.Controllers
 {
@@ -60,8 +61,8 @@ namespace Recommendations.Controllers
             //get this catalogItem
             var catalogItem = _catalogItems.GetCatalogItemById(id);
 
-            //get ITI and FBT items
-            var recommendations = await _recommendations.GetRecommendations(id, "5", "0");
+            //get recommendations
+            var recommendations = await _recommendations.GetRecommendations(new List<CatalogItem>() { catalogItem }, "100", "0");
 
             //construct view model
             var vm = new HomeCatalogItemViewModel()

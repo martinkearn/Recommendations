@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Recommendations.Repositories
 {
@@ -27,52 +28,55 @@ namespace Recommendations.Repositories
         }
 
         /// <summary>
-        /// Helper function to call the Cognitive Recommendations API with an Item-to-Item build
+        /// Helper function to call the Recommendations API for recommendations on a list of items
         /// </summary>
         /// <param name="ids">Comma seperated list of ItemId's to seed recommendations on</param>
         /// <param name="numberOfResults">How many results to return</param>
         /// <param name="minimalScore">Minimal score for results to be included</param>
-        /// <returns>catalogItems object - a list of CatalogItems representing recommended items for the passed in Ids</returns>
-        public async Task<IEnumerable<CatalogItem>> GetRecommendations(string ids, string numberOfResults, string minimalScore)
+        /// <returns>A list of CatalogItems representing recommended items</returns>
+        public async Task<IEnumerable<CatalogItem>> GetRecommendations(List<CatalogItem> seedItems, string numberOfResults, string minimalScore)
         {
             var catalogItems = new List<CatalogItem>();
 
-            if (string.IsNullOrEmpty(ids))
+            if (seedItems.Count == 0)
             {
                 return catalogItems;
             }
 
-            var responseContent = await CallRecommendationsApi(ids, numberOfResults, minimalScore, _appSettings.RecommendationsApiBuildId);
-            var recomendedItems = JsonConvert.DeserializeObject<RecommendedItems>(responseContent);
+            //get seed item IDs into a comma seperated string
+            var seedIds = string.Join(",", seedItems.Select(o => o.Id).ToList());
 
-            //cast to CatalogItems
-            foreach (var rootRecommendedItem in recomendedItems.recommendedItems)
-            {
-                foreach (var recommendedItem in rootRecommendedItem.items)
-                {
-                    var catalogItem = _catalogItemsRepository.GetCatalogItemById(recommendedItem.id);
-                    catalogItem.RecommendationRating = rootRecommendedItem.rating;
-                    catalogItems.Add(catalogItem);
-                }
-            }
+            var responseContent = await CallRecommendationsApi(seedIds, null, numberOfResults);
 
-            return catalogItems;
+            return CastResponseToCatalogItems(responseContent);
         }
 
-        private async Task<string> CallRecommendationsApi(string ids, string numberOfResults, string minimalScore, string buildId)
+        /// <summary>
+        /// Helper function to call the Recommendations API for recommendations for a user id
+        /// </summary>
+        /// <param name="userId">ID of the user to get recommendatiosn for</param>
+        /// <param name="numberOfResults">How many results to return</param>
+        /// <returns>A list of CatalogItems representing recommended items</returns>
+        public async Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItems(string userId, string numberOfResults)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return new List<CatalogItem>();
+            }
+
+            var responseContent = await CallRecommendationsApi(null, userId, numberOfResults);
+
+            return CastResponseToCatalogItems(responseContent);
+        }
+
+        private async Task<string> CallRecommendationsApi(string itemIds, string userId, string numberOfResults)
         {
             //construct API parameters
             var parameters = new Dictionary<string, string> {
-                { "itemIds", ids},
-                { "numberOfResults", numberOfResults },
-                { "minimalScore", minimalScore },
+                { "recommendationCount", numberOfResults }
             };
-
-            //Only add build ID if it is not empty. buildId is an optional field and API defaults to active build if it is ommited
-            if (!String.IsNullOrEmpty(buildId))
-            {
-                parameters.Add("buildId", buildId);
-            }
+            if (!string.IsNullOrEmpty(itemIds)) parameters.Add("itemId", itemIds);
+            if (!string.IsNullOrEmpty(userId)) parameters.Add("userId", userId);
 
             //construct full API endpoint uri
             var apiUri = QueryHelpers.AddQueryString(_baseItemToItemApiUrl, parameters);
@@ -83,16 +87,40 @@ namespace Recommendations.Repositories
             {
                 //setup HttpClient
                 httpClient.BaseAddress = new Uri(_baseItemToItemApiUrl);
-                httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _appSettings.RecommendationsApiKey);
+                httpClient.DefaultRequestHeaders.Add("x-api-key", _appSettings.RecommendationsApiKey);
 
-                //make request
-                var response = await httpClient.GetAsync(apiUri);
+                //make request. If we are using itemId, we need to do a GET, if we are using userId, we need a POST
+                var response = (itemIds != null) ?
+                    await httpClient.GetAsync(apiUri) :
+                    await httpClient.PostAsync(apiUri, null);
 
                 //read response and parse to object
                 responseContent = await response.Content.ReadAsStringAsync();
             }
 
             return responseContent;
+        }
+
+        private List<CatalogItem> CastResponseToCatalogItems(string responseContent)
+        {
+            var catalogItems = new List<CatalogItem>();
+
+            if (string.IsNullOrEmpty(responseContent))
+            {
+                return catalogItems;
+            }
+
+            var recommendedItems = JsonConvert.DeserializeObject<List<RecommendedItemDTO>>(responseContent);
+
+            //cast to CatalogItems
+            foreach (var recommendedItem in recommendedItems)
+            {
+                var catalogItem = _catalogItemsRepository.GetCatalogItemById(recommendedItem.RecommendedItemId);
+                catalogItem.RecommendationRating = recommendedItem.Score;
+                catalogItems.Add(catalogItem);
+            }
+
+            return catalogItems;
         }
     }
 }
