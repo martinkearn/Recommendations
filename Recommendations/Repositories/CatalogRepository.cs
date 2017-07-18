@@ -31,18 +31,17 @@ namespace Recommendations.Repositories
                     {
                         var cells = line.Split(',');
 
-                        //Get/create optional Catalog Item data
-                        var description = string.Empty;
-                        var price = Convert.ToDecimal(random.NextDouble() * (1.00 - 20.00) + 20.00);
-
+                        //Add mandatory data from cells to catalog item object
                         var catalogItem = new CatalogItem()
                         {
                             Id = cells[0],
                             Title = cells[1],
                             Type = cells[2],
-                            Description = description,
-                            Sell = price
                         };
+
+                        //Add optional Catalog Item data
+                        catalogItem = AddOptionalProperties(catalogItem,cells);
+
                         catalogItems.Add(catalogItem);
                     }
                 }
@@ -64,6 +63,35 @@ namespace Recommendations.Repositories
         {
             var uniqueTypes = _catalogItems.Select(o => o.Type).Distinct().ToList();
             return uniqueTypes;
+        }
+
+        private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)
+        {
+            catalogItem.Description = (cells.Count() >= 4) ?
+                cells[3] :
+                string.Empty;
+
+            catalogItem.Rrp = (cells.Count() >= 5) ?
+                Convert.ToDecimal(cells[4].Substring(4)) :
+                Convert.ToDecimal(0.00);
+
+            catalogItem.Sell = (cells.Count() >= 6) ?
+                Convert.ToDecimal(cells[5].Substring(5)) :
+                Convert.ToDecimal(0.00);
+
+            catalogItem.Brand = (cells.Count() >= 7) ?
+                cells[6].Substring(6) :
+                string.Empty;
+
+            catalogItem.ImageUrl = (cells.Count() >= 8) ?
+                cells[7].Substring(4) :
+                "http://lorempixel.com/500/500/";
+
+            catalogItem.Colour = (cells.Count() >= 9) ?
+                cells[8].Substring(5) :
+                string.Empty;
+
+            return catalogItem;
         }
     }
 }
