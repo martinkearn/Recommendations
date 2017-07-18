@@ -1,4 +1,4 @@
-﻿namespace Recommendations.Models
+﻿namespace Recommendations.Dtos
 {
     public class Item
     {

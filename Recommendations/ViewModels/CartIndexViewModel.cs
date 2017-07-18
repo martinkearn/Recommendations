@@ -1,4 +1,5 @@
-﻿using Recommendations.Models;
+﻿using Recommendations.Dtos;
+using Recommendations.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

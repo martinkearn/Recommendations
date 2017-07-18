@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Recommendations.Models;
+using System.Collections.Generic;
 
-namespace Recommendations.Models
+namespace Recommendations.Dtos
 {
     public class RecommendedItem
     {

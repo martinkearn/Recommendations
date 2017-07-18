@@ -1,4 +1,4 @@
-﻿using Recommendations.Models;
+﻿using Recommendations.Dtos;
 using System.Threading.Tasks;
 
 namespace Recommendations.Interfaces

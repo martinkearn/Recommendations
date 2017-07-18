@@ -1,4 +1,5 @@
-﻿using Recommendations.Models;
+﻿using Recommendations.Dtos;
+using Recommendations.Models;
 
 namespace Recommendations.ViewModels
 {

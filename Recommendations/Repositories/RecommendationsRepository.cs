@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Recommendations.Interfaces;
+using Recommendations.Dtos;
 using Recommendations.Models;
 using System;
 using System.Collections.Generic;
