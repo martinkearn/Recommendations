@@ -6,7 +6,7 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">
+                    <h3 class="panel-title text-nowrap">
                         <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
                             @catalogItem.Title
                         </a>
@@ -22,11 +22,8 @@
                     </div>
                     @if (catalogItem.RecommendationRating > 0)
                     {
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>@catalogItem.RecommendationRating</span>
-                            </div>
-                        </div>
+                        <!--TO DO: Use a tag helper for this?-->
+                        <span style="position: absolute;top: 40px;width: 100%;">@catalogItem.RecommendationRating.ToString("P", System.Globalization.CultureInfo.InvariantCulture)</span>
                     }
                     <div class="row">
                         <div class="col-md-6">
