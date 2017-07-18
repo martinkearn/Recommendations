@@ -46,18 +46,8 @@
     </tfoot>
 </table>
 
-<h2>Recomendations for cart</h2>
-@if (Model.Recommendations.Count() == 0)
-{
-    <p>There are no recommendations for this item</p>
-}
-else
-{
-    @foreach (var recommendation in Model.Recommendations)
-    {
-        <p><a asp-action="catalogItem" asp-controller="Home" asp-route-id="@recommendation.Id"><strong>@recommendation.Title</strong></a> with a rating of @Math.Round(recommendation.RecommendationRating, 3)</p>
-    }
-}
+<h2>Recomendations <small>Based on the cart contents</small></h2>
+@Html.Partial("_CatalogItems", Model.Recommendations)
 
 
 

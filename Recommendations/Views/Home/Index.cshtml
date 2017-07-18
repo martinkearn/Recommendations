@@ -10,10 +10,7 @@
     <p>Click an item to see details and recommendations</p>
 </div>
 
-@foreach (var catalogItem in Model.CatalogItems)
-{
-    <p><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">@catalogItem.Title</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-xs">Add To Cart</a></p>
-}
+@Html.Partial("_CatalogItems", Model.CatalogItems)
 
 <hr />
 <p><a asp-action="Index" asp-controller="home" asp-route-page="@Model.PreviousPage">< Previous</a> @Model.CurrentPage of @Model.TotalPages <a asp-action="Index" asp-controller="home" asp-route-page="@Model.NextPage">Next ></a></p>

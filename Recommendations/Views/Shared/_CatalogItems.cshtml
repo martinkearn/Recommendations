@@ -1,0 +1,43 @@
+@model IEnumerable<Recommendations.Models.CatalogItem>
+
+<div class="row">
+    @foreach (var catalogItem in Model)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
+                            @catalogItem.Title
+                        </a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
+                                <img class="img-responsive" src="@catalogItem.ImageUrl" alt="@catalogItem.Title" />
+                            </a>
+                        </div>
+                    </div>
+                    @if (catalogItem.RecommendationRating > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>@catalogItem.RecommendationRating</span>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>@catalogItem.Sell.ToString("c")</span>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-sm pull-right">Add To Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

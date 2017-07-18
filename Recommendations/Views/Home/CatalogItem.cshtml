@@ -13,15 +13,5 @@
 
 
 
-<h2>Recomendations</h2>
-@if (Model.Recommendations.Count() == 0)
-{
-    <p>There are no recommendations for this iten</p>
-}
-else
-{
-    @foreach (var recommendation in Model.Recommendations)
-    {
-        <p><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@recommendation.Id"><strong>@recommendation.Title</strong></a> with a rating of @Math.Round(recommendation.RecommendationRating, 3)</p>
-    }
-}
+<h2>Recomendations <small>Based on this item</small></h2>
+@Html.Partial("_CatalogItems", Model.Recommendations)
