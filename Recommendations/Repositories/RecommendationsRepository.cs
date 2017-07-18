@@ -42,7 +42,7 @@ namespace Recommendations.Repositories
                 return catalogItems;
             }
 
-            var responseContent = await CallRecommendationsApi(ids, numberOfResults, minimalScore, _appSettings.RecommendationsApiITIBuildId);
+            var responseContent = await CallRecommendationsApi(ids, numberOfResults, minimalScore, _appSettings.RecommendationsApiBuildId);
             var recomendedItems = JsonConvert.DeserializeObject<RecommendedItems>(responseContent);
 
             //cast to CatalogItems
