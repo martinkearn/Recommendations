@@ -27,13 +27,13 @@ namespace Recommendations.Controllers
             var cart = _cart.CreateGetCart(HttpContext.Session);
 
             var ids = string.Join(",", cart.CartItems.Select(o => o.CatalogItem.Id));
-            var itiItems = await _recommendations.GetITIItems(ids, "5", "0");
+            var recommendations = await _recommendations.GetRecommendations(ids, "5", "0");
 
             //construct view model
             var vm = new CartIndexViewModel()
             {
                 Cart = cart,
-                ITIItems = itiItems
+                Recommendations = recommendations
             };
 
             //return view

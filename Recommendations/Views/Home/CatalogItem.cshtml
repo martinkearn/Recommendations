@@ -14,14 +14,14 @@
 
 
 <h2>Recomendations</h2>
-@if (Model.ITIItems.recommendedItems.Count() == 0)
+@if (Model.Recommendations.Count() == 0)
 {
     <p>There are no recommendations for this iten</p>
 }
 else
 {
-    @foreach (var recommendedItem in Model.ITIItems.recommendedItems)
+    @foreach (var recommendation in Model.Recommendations)
     {
-        <p><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@recommendedItem.items.FirstOrDefault().id"><strong>@recommendedItem.items.FirstOrDefault().name</strong></a> with a rating of '@Math.Round(recommendedItem.rating, 3)' because @recommendedItem.reasoning.FirstOrDefault()</p>
+        <p><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@recommendation.Id"><strong>@recommendation.Title</strong></a> with a rating of @Math.Round(recommendation.RecommendationRating, 3)</p>
     }
 }

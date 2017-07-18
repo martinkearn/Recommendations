@@ -11,6 +11,6 @@ namespace Recommendations.ViewModels
     {
         public Cart Cart { get; set; }
 
-        public RecommendedItems ITIItems { get; set; }
+        public IEnumerable<CatalogItem> Recommendations { get; set; }
     }
 }

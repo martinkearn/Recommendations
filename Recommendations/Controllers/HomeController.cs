@@ -61,13 +61,13 @@ namespace Recommendations.Controllers
             var catalogItem = _catalogItems.GetCatalogItemById(id);
 
             //get ITI and FBT items
-            var itiItems = await _recommendations.GetITIItems(id, "5", "0");
+            var recommendations = await _recommendations.GetRecommendations(id, "5", "0");
 
             //construct view model
             var vm = new HomeCatalogItemViewModel()
             {
                 CatalogItem = catalogItem,
-                ITIItems = itiItems
+                Recommendations = recommendations
             };
 
             //return view

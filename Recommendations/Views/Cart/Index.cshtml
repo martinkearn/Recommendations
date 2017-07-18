@@ -47,15 +47,15 @@
 </table>
 
 <h2>Recomendations for cart</h2>
-@if (Model.ITIItems.recommendedItems == null)
+@if (Model.Recommendations.Count() == 0)
 {
     <p>There are no recommendations for this item</p>
 }
 else
 {
-    @foreach (var recommendedItem in Model.ITIItems.recommendedItems)
+    @foreach (var recommendation in Model.Recommendations)
     {
-        <p><a asp-action="catalogItem" asp-controller="Home" asp-route-id="@recommendedItem.items.FirstOrDefault().id"><strong>@recommendedItem.items.FirstOrDefault().name</strong></a> with a rating of '@Math.Round(recommendedItem.rating, 3)' because @recommendedItem.reasoning.FirstOrDefault()</p>
+        <p><a asp-action="catalogItem" asp-controller="Home" asp-route-id="@recommendation.Id"><strong>@recommendation.Title</strong></a> with a rating of @Math.Round(recommendation.RecommendationRating, 3)</p>
     }
 }
 
