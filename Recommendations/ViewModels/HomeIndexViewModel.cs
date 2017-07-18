@@ -16,6 +16,6 @@ namespace Recommendations.ViewModels
 
         public int PreviousPage { get; set; }
 
-        public int TotalcatalogItems { get; set; }
+        public int TotalCatalogItems { get; set; }
     }
 }

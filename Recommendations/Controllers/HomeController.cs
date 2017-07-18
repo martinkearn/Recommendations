@@ -47,7 +47,7 @@ namespace Recommendations.Controllers
                 CatalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
-                TotalcatalogItems = totalcatalogItems,
+                TotalCatalogItems = totalcatalogItems,
                 NextPage = nextPage,
                 PreviousPage = previousPage
             };

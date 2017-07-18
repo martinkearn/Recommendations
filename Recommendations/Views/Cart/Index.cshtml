@@ -1,4 +1,4 @@
-﻿@model Recommendations.ViewModels.CartIndexViewModel
+﻿@model CartIndexViewModel
 
 @{
     ViewData["Title"] = "Cart";
@@ -47,7 +47,8 @@
 </table>
 
 <h2>Recomendations <small>Based on the cart contents</small></h2>
-@Html.Partial("_CatalogItems", Model.Recommendations)
+
+@Html.Partial("_CatalogItems", new CatalogItemPartialViewModel() { CatalogItems = Model.Recommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
 
 
 

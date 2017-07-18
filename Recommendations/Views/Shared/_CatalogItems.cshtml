@@ -1,9 +1,11 @@
-@model IEnumerable<Recommendations.Models.CatalogItem>
+@model Recommendations.ViewModels.CatalogItemPartialViewModel
 
 <div class="row">
-    @foreach (var catalogItem in Model)
+    @for (int i = 0; i < Model.MaxVisible; i++)
     {
-        <div class="col-md-4">
+        var catalogItem = Model.CatalogItems[i];
+
+        <div class="@Model.ItemGridClass">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title text-nowrap">
@@ -22,7 +24,7 @@
                     </div>
                     @if (catalogItem.RecommendationRating > 0)
                     {
-                        <!--TO DO: Use a tag helper for this?-->
+            <!--TO DO: Use a tag helper for this?-->
                         <span style="position: absolute;top: 40px;width: 100%;">@catalogItem.RecommendationRating.ToString("P", System.Globalization.CultureInfo.InvariantCulture)</span>
                     }
                     <div class="row">
