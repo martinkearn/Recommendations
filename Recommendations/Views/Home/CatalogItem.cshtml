@@ -7,7 +7,7 @@
 <div class="jumbotron">
     <h1>@ViewData["Title"] <small>@Model.CatalogItem.Id</small></h1>
     <p>@Model.CatalogItem.Description</p>
-    <p>@Model.CatalogItem.Price.ToString("c")</p>
+    <p>@Model.CatalogItem.Sell.ToString("c")</p>
     <a asp-action="index" class="btn btn-default">See all items</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.CatalogItem.Id" class="btn btn-primary">Add to cart</a>
 </div>
 

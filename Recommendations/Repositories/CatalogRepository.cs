@@ -41,7 +41,7 @@ namespace Recommendations.Repositories
                             Title = cells[1],
                             Type = cells[2],
                             Description = description,
-                            Price = price
+                            Sell = price
                         };
                         catalogItems.Add(catalogItem);
                     }

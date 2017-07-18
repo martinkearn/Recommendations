@@ -100,7 +100,7 @@ namespace Recommendations.Repositories
             foreach (var cartItem in cart.CartItems)
             {
                 totalQuantity += cartItem.Quantity;
-                totalPrice += cartItem.CatalogItem.Price * cartItem.Quantity;
+                totalPrice += cartItem.CatalogItem.Sell * cartItem.Quantity;
             }
 
             cart.TotalQuantity = totalQuantity;

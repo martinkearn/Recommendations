@@ -24,8 +24,8 @@
         <tr>
             <td><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@cartItem.CatalogItem.Id">@cartItem.CatalogItem.Title</a></td>
             <td>@cartItem.Quantity</td>
-            <td>@cartItem.CatalogItem.Price.ToString("c")</td>
-            <td>@((cartItem.CatalogItem.Price * cartItem.Quantity).ToString("c"))</td>
+            <td>@cartItem.CatalogItem.Sell.ToString("c")</td>
+            <td>@((cartItem.CatalogItem.Sell * cartItem.Quantity).ToString("c"))</td>
             <td><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartItem.CatalogItem.Id" class="btn btn-default btn-xs">Remove</a></td>
         </tr>
     }
