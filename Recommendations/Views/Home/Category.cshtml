@@ -1,4 +1,4 @@
-@model CatalogItemGroupViewModel
+@model CategoryViewModel
 
 @{
     ViewData["Title"] = Model.GroupName;
@@ -8,6 +8,16 @@
     <h1>@ViewData["Title"]</h1>
     <p>Showing all items in this category</p>
     <p>Click an item to see details and recommendations</p>
+    @if (Model.RelatedCategories != null)
+    {
+        <p>
+            <span>Also see</span>
+            @foreach (var relatedCategory in Model.RelatedCategories)
+            {
+                <a asp-action="Category" asp-controller="Home" asp-route-id="@relatedCategory">@relatedCategory</a>
+            }
+        </p>
+    }
 </div>
 
 @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.CatalogItems.ToList(), MaxVisible = Model.CatalogItems.Count(), ItemGridClass = "col-md-4" })

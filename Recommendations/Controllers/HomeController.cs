@@ -14,13 +14,15 @@ namespace Recommendations.Controllers
         private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
+        private readonly ICategoryRepository _categories;
         private const int _pageSize = 21; 
 
-        public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart, ICategoryRepository categories)
         {
             _catalogItems = catalogItemsRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
+            _categories = categories;
         }
 
         public IActionResult Index(int? page)
@@ -107,8 +109,11 @@ namespace Recommendations.Controllers
             var nextPage = pageNumber + 1;
             var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
+            //get related categories
+            var relatedCategories = _categories.GetRelatedCategories(id);
+
             //construct view model
-            var vm = new CatalogItemGroupViewModel()
+            var vm = new CategoryViewModel()
             {
                 GroupName = id,
                 CatalogItems = pageOfcatalogItems,
@@ -116,7 +121,8 @@ namespace Recommendations.Controllers
                 TotalPages = totalPages,
                 TotalcatalogItems = totalcatalogItems,
                 NextPage = nextPage,
-                PreviousPage = previousPage
+                PreviousPage = previousPage,
+                RelatedCategories = relatedCategories
             };
 
             //return view

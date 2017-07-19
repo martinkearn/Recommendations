@@ -8,5 +8,7 @@
         public string RecommendationsApiBuildId { get; set; }
 
         public string CatalogFileName { get; set; }
+
+        public string CategoriesFileName { get; set; }
     }
 }
