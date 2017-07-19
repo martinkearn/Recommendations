@@ -9,9 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\bookscatalog.txt" />
-    <Content Include="wwwroot\msstore-catalog.txt" />
-    <Content Include="wwwroot\sportshopcatalog.csv" />
+    <Content Remove="wwwroot/bookscatalog.txt" />
+    <Content Remove="wwwroot/msstore-catalog.txt" />
+    <Content Remove="wwwroot/sportshopcatalog.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot/bookscatalog.txt" />
+    <None Include="wwwroot/msstore-catalog.txt" />
+    <None Include="wwwroot/sportshopcatalog.csv" />
+    <None Include="wwwroot\bookscatalog.txt" />
+    <None Include="wwwroot\msstore-catalog.txt" />
+    <None Include="wwwroot\sportshopcatalog.csv" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
