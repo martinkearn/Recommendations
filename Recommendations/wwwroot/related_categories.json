@@ -1,0 +1,46 @@
+[
+  {
+    "category": "Trainers",
+    "footwearCategory": [ ],
+    "legwareCategory": [ "Jeans", "Shorts", "Track Pants" ],
+    "bodywareCategory": [ "T-Shirts", "Jackets", "Sweatshirts", "Vests" ],
+    "headwearCategory": [ "Caps", "Beanies" ],
+    "relatedCategories": [ "Slides", "Sweatbands", "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ]
+  },
+
+  {
+    "category": "T-Shirts",
+    "footwearCategory": [ "Trainers", "Shoes", "Plimsolls" ],
+    "legwareCategory": [ "Jeans", "Shorts", "Track Pants" ],
+    "bodywareCategory": [ ],
+    "headwearCategory": [ "Caps", "Beanies" ],
+    "relatedCategories": [ "Slides", "Sweatbands", "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ]
+  },
+
+  {
+    "category": "Jeans",
+    "footwearCategory": [ "Trainers", "Shoes", "Plimsolls", "Boots", "Flip-Flops" ],
+    "legwareCategory": [ ],
+    "bodywareCategory": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
+    "headwearCategory": [ "Caps", "Beanies" ],
+    "relatedCategories": [ "Sunglasses", "Wallets" ]
+  },
+
+  {
+    "category": "Football Boots",
+    "footwearCategory": [ "Socks" ],
+    "legwareCategory": [ "Jeans", "Shorts", "Track Pants" ],
+    "bodywareCategory": [ "Replica Shirts & Jerseys" ],
+    "headwearCategory": [ "Caps", "Beanies" ],
+    "relatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ]
+  },
+
+  {
+    "category": "Beanies",
+    "footwearCategory": [ "Trainers", "Shoes", "Plimsolls", "Boots" ],
+    "legwareCategory": [ "Jeans", "Shorts", "Track Pants" ],
+    "bodywareCategory": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
+    "headwearCategory": [ ],
+    "relatedCategories": [ "Sunglasses", "Wallets" ]
+  }
+]

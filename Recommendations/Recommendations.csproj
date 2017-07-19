@@ -11,7 +11,13 @@
   <ItemGroup>
     <Content Remove="wwwroot/bookscatalog.txt" />
     <Content Remove="wwwroot/msstore-catalog.txt" />
+    <Content Remove="wwwroot/related_categories.json" />
     <Content Remove="wwwroot/sportshopcatalog.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot/related_categories.json" />
+    <None Include="wwwroot\related_categories.json" />
   </ItemGroup>
 
   <ItemGroup>

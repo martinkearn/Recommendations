@@ -9,6 +9,8 @@ namespace Recommendations.Interfaces
 
         CatalogItem GetCatalogItemById(string id);
 
-        IEnumerable<string> GetCatalogItemCategories();
+        IEnumerable<string> GetCategories();
+
+        IEnumerable<string> GetBrands();
     }
 }

@@ -1,11 +1,15 @@
 ﻿using Recommendations.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Recommendations.ViewModels
 {
-    public class HomeIndexViewModel
+    public class CatalogItemGroupViewModel
     {
+        public string GroupName { get; set; }
+
         public IEnumerable<CatalogItem> CatalogItems { get; set; }
 
         public int CurrentPage { get; set; }
@@ -16,6 +20,6 @@ namespace Recommendations.ViewModels
 
         public int PreviousPage { get; set; }
 
-        public int TotalCatalogItems { get; set; }
+        public int TotalcatalogItems { get; set; }
     }
 }

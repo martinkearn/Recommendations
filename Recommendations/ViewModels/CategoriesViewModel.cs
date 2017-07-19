@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Recommendations.ViewModels
 {
-    public class HomeCategoriesViewModel
+    public class CategoriesViewModel
     {
         public IEnumerable<string> Categories { get; set; }
     }

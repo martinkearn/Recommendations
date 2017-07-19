@@ -1,0 +1,15 @@
+﻿@model Recommendations.ViewModels.BrandsViewModel
+
+@{
+    ViewData["Title"] = "Brands";
+}
+
+<div class="jumbotron">
+    <h1>@ViewData["Title"]</h1>
+    <p>The various brands</p>
+</div>
+
+@foreach (var brand in Model.Brands)
+{
+    <p><a asp-action="Brand" asp-controller="Home" asp-route-id="@brand">@brand</a></p>
+}

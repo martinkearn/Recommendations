@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Recommendations.ViewModels
 {
-    public class CatalogItemPartialViewModel
+    public class CatalogItemsPartialViewModel
     {
         public List<CatalogItem> CatalogItems { get; set; }
 

@@ -59,10 +59,16 @@ namespace Recommendations.Repositories
             return _catalogItems.Where(o => o.Id == id).FirstOrDefault();
         }
 
-        public IEnumerable<string> GetCatalogItemCategories()
+        public IEnumerable<string> GetCategories()
         {
             var uniqueTypes = _catalogItems.Select(o => o.Type).Distinct().ToList();
             return uniqueTypes;
+        }
+
+        public IEnumerable<string> GetBrands()
+        {
+            var uniqueBrands = _catalogItems.Select(o => o.Brand).Distinct().ToList();
+            return uniqueBrands;
         }
 
         private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)

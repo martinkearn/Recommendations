@@ -14,7 +14,7 @@ namespace Recommendations.Controllers
         private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
-        private const int _pageSize = 20; 
+        private const int _pageSize = 21; 
 
         public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
@@ -42,12 +42,12 @@ namespace Recommendations.Controllers
             var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
             //construct view model
-            var vm = new HomeIndexViewModel()
+            var vm = new CatalogItemGroupViewModel()
             {
+                GroupName = "Home",
                 CatalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
-                TotalCatalogItems = totalcatalogItems,
                 NextPage = nextPage,
                 PreviousPage = previousPage
             };
@@ -65,7 +65,7 @@ namespace Recommendations.Controllers
             var recommendations = await _recommendations.GetRecommendations(new List<CatalogItem>() { catalogItem }, "100", "0");
 
             //construct view model
-            var vm = new HomeCatalogItemViewModel()
+            var vm = new CatalogItemViewModel()
             {
                 CatalogItem = catalogItem,
                 Recommendations = recommendations
@@ -77,10 +77,10 @@ namespace Recommendations.Controllers
 
         public IActionResult Categories()
         {
-            var categories = _catalogItems.GetCatalogItemCategories();
+            var categories = _catalogItems.GetCategories();
 
             //construct view model
-            var vm = new HomeCategoriesViewModel()
+            var vm = new CategoriesViewModel()
             {
                 Categories = categories
             };
@@ -91,26 +91,74 @@ namespace Recommendations.Controllers
 
         public IActionResult Category(string id, int? page)
         {
-            var allcatalogItems = _catalogItems.GetCatalogItems().Where(o => o.Type.ToLower() == id.ToLower());
+            var allCatalogItems = _catalogItems.GetCatalogItems().Where(o => o.Type.ToLower() == id.ToLower());
 
             //get page of catalogItems
             var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
             var numberToSkip = pageNumber * _pageSize;
 
             var pageOfcatalogItems = (pageNumber == 1) ?
-                allcatalogItems.Take(_pageSize) :
-                allcatalogItems.Skip(numberToSkip).Take(_pageSize);
+                allCatalogItems.Take(_pageSize) :
+                allCatalogItems.Skip(numberToSkip).Take(_pageSize);
 
             //paging values
-            var totalPages = allcatalogItems.Count() / _pageSize;
-            var totalcatalogItems = allcatalogItems.Count();
+            var totalPages = allCatalogItems.Count() / _pageSize;
+            var totalcatalogItems = allCatalogItems.Count();
             var nextPage = pageNumber + 1;
             var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
             //construct view model
-            var vm = new HomeCategoryViewModel()
+            var vm = new CatalogItemGroupViewModel()
             {
-                CategoryName = id,
+                GroupName = id,
+                CatalogItems = pageOfcatalogItems,
+                CurrentPage = pageNumber,
+                TotalPages = totalPages,
+                TotalcatalogItems = totalcatalogItems,
+                NextPage = nextPage,
+                PreviousPage = previousPage
+            };
+
+            //return view
+            return View(vm);
+        }
+
+        public IActionResult Brands()
+        {
+            var brands = _catalogItems.GetBrands();
+
+            //construct view model
+            var vm = new BrandsViewModel()
+            {
+                Brands = brands
+            };
+
+            //return view
+            return View(vm);
+        }
+
+        public IActionResult Brand(string id, int? page)
+        {
+            var allCatalogItems = _catalogItems.GetCatalogItems().Where(o => o.Brand.ToLower() == id.ToLower());
+
+            //get page of catalogItems
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var numberToSkip = pageNumber * _pageSize;
+
+            var pageOfcatalogItems = (pageNumber == 1) ?
+                allCatalogItems.Take(_pageSize) :
+                allCatalogItems.Skip(numberToSkip).Take(_pageSize);
+
+            //paging values
+            var totalPages = allCatalogItems.Count() / _pageSize;
+            var totalcatalogItems = allCatalogItems.Count();
+            var nextPage = pageNumber + 1;
+            var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
+
+            //construct view model
+            var vm = new CatalogItemGroupViewModel()
+            {
+                GroupName = id,
                 CatalogItems = pageOfcatalogItems,
                 CurrentPage = pageNumber,
                 TotalPages = totalPages,
