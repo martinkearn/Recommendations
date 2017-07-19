@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Content Include="wwwroot\bookscatalog.txt" />
-    <Content Include="wwwroot\jdcatalogue.csv" />
     <Content Include="wwwroot\msstore-catalog.txt" />
     <Content Include="wwwroot\sportshopcatalog.csv" />
   </ItemGroup>

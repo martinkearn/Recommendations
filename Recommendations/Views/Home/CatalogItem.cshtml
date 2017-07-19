@@ -5,10 +5,25 @@
 }
 
 <div class="jumbotron">
-    <h1>@ViewData["Title"] <small>@Model.CatalogItem.Id</small></h1>
-    <p>@Model.CatalogItem.Description</p>
-    <p>@Model.CatalogItem.Sell.ToString("c")</p>
-    <a asp-action="index" class="btn btn-default">See all items</a> <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.CatalogItem.Id" class="btn btn-primary">Add to cart</a>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <img class="img-responsive" src="@Model.CatalogItem.ImageUrl" alt="@Model.CatalogItem.Title" />
+        </div>
+        <div class="col-md-7">
+            <p>ID: @Model.CatalogItem.Id</p>
+            <p>Category: <a asp-controller="Home" asp-action="Category" asp-route-id="@Model.CatalogItem.Type">@Model.CatalogItem.Type</a></p>
+            <p>Description: @Model.CatalogItem.Description</p>
+            <p>Brand: @Model.CatalogItem.Brand</p>
+            <p>Colour: @Model.CatalogItem.Colour</p>
+            <p>Price: <price sell="@Model.CatalogItem.Sell" rrp="@Model.CatalogItem.Rrp"></price> </p>
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.CatalogItem.Id" class="btn btn-primary">Add to cart</a>
+        </div>
+    </div>
 </div>
 
 

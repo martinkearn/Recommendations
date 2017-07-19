@@ -8,7 +8,7 @@
         <div class="@Model.ItemGridClass">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-nowrap">
+                    <h3 class="panel-title text-nowrap" style="overflow: hidden;text-overflow: ellipsis;" data-toggle="tooltip" data-placement="bottom" title="@catalogItem.Title in @catalogItem.Colour for @catalogItem.Sell.ToString("c")" >
                         <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
                             @catalogItem.Title
                         </a>

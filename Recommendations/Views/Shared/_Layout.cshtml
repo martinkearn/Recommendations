@@ -71,5 +71,12 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
+    <script>
+        //Initialise Bootstrap Popover
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 </html>
