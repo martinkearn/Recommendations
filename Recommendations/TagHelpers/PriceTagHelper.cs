@@ -10,6 +10,7 @@ namespace Recommendations.TagHelpers
     {
         public decimal Sell { get; set; }
         public decimal Rrp { get; set; }
+        public bool Verbose { get; set; }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
@@ -24,12 +25,19 @@ namespace Recommendations.TagHelpers
             else
             {
                 //is discounted, display was and now
-                var sellPercentageOfRrp = (Sell/Rrp) * 100;
+                var sellPercentageOfRrp = (Sell / Rrp) * 100;
                 var saving = 100 - sellPercentageOfRrp;
                 var savingRounded = Math.Round(saving, 0);
 
                 output.TagName = "span";
-                output.Content.SetHtmlContent($@"<span style=""text-decoration: line-through;"">Was {Rrp.ToString("c")}</span>, Now {Sell.ToString("c")}. Save {savingRounded}%");
+                if (Verbose)
+                {
+                    output.Content.SetHtmlContent($@"<span style=""text-decoration: line-through;"">Was {Rrp.ToString("c")}</span>, Now {Sell.ToString("c")}. Save {savingRounded}%");
+                }
+                else
+                {
+                    output.Content.SetHtmlContent($@"<span style=""text-decoration: line-through;"">{Rrp.ToString("c")}</span> {Sell.ToString("c")}");
+                }
                 output.TagMode = TagMode.StartTagAndEndTag;
             }
 

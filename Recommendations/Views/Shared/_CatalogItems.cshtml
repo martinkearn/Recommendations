@@ -24,12 +24,11 @@
                     </div>
                     @if (catalogItem.RecommendationRating > 0)
                     {
-            <!--TO DO: Use a tag helper for this?-->
                         <span style="position: absolute;top: 40px;width: 100%;">@catalogItem.RecommendationRating.ToString("P", System.Globalization.CultureInfo.InvariantCulture)</span>
                     }
                     <div class="row">
                         <div class="col-md-6">
-                            <span>@catalogItem.Sell.ToString("c")</span>
+                            <price sell="@catalogItem.Sell" rrp="@catalogItem.Rrp" verbose="false"></price>
                         </div>
                         <div class="col-md-6">
                             <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-sm pull-right">Add To Cart</a>
