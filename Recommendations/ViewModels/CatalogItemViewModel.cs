@@ -12,5 +12,7 @@ namespace Recommendations.ViewModels
         public string OutfitSection { get; set; }
 
         public IEnumerable<CatalogItem> Outfit { get; set; }
+
+        public string  OnlineLink { get; set; }
     }
 }

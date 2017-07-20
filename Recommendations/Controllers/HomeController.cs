@@ -70,13 +70,17 @@ namespace Recommendations.Controllers
             //get outfit
             var outfit = _catalogItems.GetOutfit(catalogItem, recommendations);
 
+            //get online link
+            var onlineLink = ($"https://www.jdsports.co.uk/product/{catalogItem.Colour}-{catalogItem.Title}/{catalogItem.Id}/").ToLower().Replace(" ", "-");
+
             //construct view model
             var vm = new CatalogItemViewModel()
             {
                 CatalogItem = catalogItem,
                 Recommendations = recommendations,
                 OutfitSection = bodySection,
-                Outfit = outfit
+                Outfit = outfit,
+                OnlineLink = onlineLink
             };
 
             //return view
