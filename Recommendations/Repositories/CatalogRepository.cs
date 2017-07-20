@@ -100,7 +100,7 @@ namespace Recommendations.Repositories
 
         public CatalogItem GetCatalogItemById(string id)
         {
-            return _catalogItems.Where(o => o.Id == id).FirstOrDefault();
+            return _catalogItems.FirstOrDefault(o => o.Id == id);
         }
 
         public IEnumerable<Category> GetCategories()
@@ -110,13 +110,17 @@ namespace Recommendations.Repositories
 
         public Category GetCategoryById(string id)
         {
-            return _categories.Where(o => o.Title == id).FirstOrDefault();
+            return _categories.FirstOrDefault(o => o.Title == id);
         }
 
         public IEnumerable<string> GetBrands()
         {
-            var uniqueBrands = _catalogItems.Select(o => o.Brand).Distinct().ToList();
-            return uniqueBrands;
+            return _catalogItems.Select(o => o.Brand).Distinct().ToList();
+        }
+
+        public string GetOutfitSection(CatalogItem catalogItem)
+        {
+            return _categories.FirstOrDefault(o => o.Title == catalogItem.Type)?.OutfitSection;
         }
 
         private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)
@@ -146,12 +150,6 @@ namespace Recommendations.Repositories
                 string.Empty;
 
             return catalogItem;
-        }
-
-        public string GetOutfitSection(CatalogItem catalogItem)
-        {
-            var category = GetCategoryById(catalogItem.Type);
-            return category.OutfitSection;
         }
     }
 }
