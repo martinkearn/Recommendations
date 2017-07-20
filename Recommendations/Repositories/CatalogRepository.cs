@@ -69,11 +69,12 @@ namespace Recommendations.Repositories
                     categories.Add(new Category()
                     {
                         Title = categoryTitle,
-                        RelatedBodywareCategoryTitles = categoryData.BodywareCategories.ToList(),
-                        RelatedFootwearCategoryTitles = categoryData.FootwearCategories.ToList(),
-                        RelatedHeadwearCategoryTitles = categoryData.HeadwearCategories.ToList(),
-                        RelatedLegwareCategoryTitles = categoryData.LegwareCategories.ToList(),
-                        TopRelatedCategoryTitles = categoryData.RelatedCategories.ToList()
+                        OutfitSection = categoryData.outfitSection,
+                        RelatedBodywareCategoryTitles = categoryData.bodywareCategories.ToList(),
+                        RelatedFootwearCategoryTitles = categoryData.footwearCategories.ToList(),
+                        RelatedHeadwearCategoryTitles = categoryData.headwearCategories.ToList(),
+                        RelatedLegwareCategoryTitles = categoryData.legwareCategories.ToList(),
+                        TopRelatedCategoryTitles = categoryData.topRelatedCategories.ToList()
                     });
                 }
                 else
@@ -145,6 +146,12 @@ namespace Recommendations.Repositories
                 string.Empty;
 
             return catalogItem;
+        }
+
+        public string GetOutfitSection(CatalogItem catalogItem)
+        {
+            var category = GetCategoryById(catalogItem.Type);
+            return category.OutfitSection;
         }
     }
 }

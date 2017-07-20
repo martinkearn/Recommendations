@@ -9,5 +9,6 @@ namespace Recommendations.ViewModels
     public class CategoryViewModel : CatalogItemGroupViewModel
     {
         public IEnumerable<string> RelatedCategoryTitles { get; set; }
+        public string OutfitSection { get; set; }
     }
 }

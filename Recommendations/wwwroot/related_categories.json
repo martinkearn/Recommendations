@@ -1,46 +1,51 @@
 [
   {
     "category": "Trainers",
+    "outfitSection": "Footwear",
     "footwearCategories": [],
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Vests" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "relatedCategories": [ "Slides", "Sweatbands", "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ]
+    "topRelatedCategories": [ "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ]
   },
 
   {
     "category": "T-Shirts",
+    "outfitSection": "Bodywear",
     "footwearCategories": [ "Trainers", "Shoes", "Plimsolls" ],
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "relatedCategories": [ "Slides", "Sweatbands", "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ]
+    "topRelatedCategories": [ "Trainers", "Jeans", "Shorts", "Caps" ]
   },
 
   {
     "category": "Jeans",
+    "outfitSection": "Legwear",
     "footwearCategories": [ "Trainers", "Shoes", "Plimsolls", "Boots", "Flip-Flops" ],
     "legwareCategories": [],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "relatedCategories": [ "Sunglasses", "Wallets" ]
+    "topRelatedCategories": [ "Sunglasses", "Wallets", "T-Shirts" ]
   },
 
   {
     "category": "Football Boots",
+    "outfitSection": "Footwear",
     "footwearCategories": [ "Socks" ],
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "Replica Shirts & Jerseys" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "relatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ]
+    "topRelatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ]
   },
 
   {
     "category": "Beanies",
+    "outfitSection": "Headwear",
     "footwearCategories": [ "Trainers", "Shoes", "Plimsolls", "Boots" ],
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
     "headwearCategories": [],
-    "relatedCategories": [ "Sunglasses", "Wallets" ]
+    "topRelatedCategories": [ "Sunglasses", "Wallets" ]
   }
 ]

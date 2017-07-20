@@ -8,10 +8,12 @@ namespace Recommendations.Dtos
     public class CategoryDto
     {
         public string category { get; set; }
-        public IEnumerable<string> FootwearCategories { get; set; }
-        public IEnumerable<string> LegwareCategories { get; set; }
-        public IEnumerable<string> BodywareCategories { get; set; }
-        public IEnumerable<string> HeadwearCategories { get; set; }
-        public IEnumerable<string> RelatedCategories { get; set; }
+
+        public string outfitSection { get; set; }
+        public IEnumerable<string> footwearCategories { get; set; }
+        public IEnumerable<string> legwareCategories { get; set; }
+        public IEnumerable<string> bodywareCategories { get; set; }
+        public IEnumerable<string> headwearCategories { get; set; }
+        public IEnumerable<string> topRelatedCategories { get; set; }
     }
 }

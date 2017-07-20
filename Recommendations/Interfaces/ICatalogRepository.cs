@@ -14,5 +14,7 @@ namespace Recommendations.Interfaces
         Category GetCategoryById(string id);
 
         IEnumerable<string> GetBrands();
+
+        string GetOutfitSection(CatalogItem catalogItem);
     }
 }

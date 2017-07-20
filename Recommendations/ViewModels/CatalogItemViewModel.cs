@@ -8,5 +8,7 @@ namespace Recommendations.ViewModels
     {
         public CatalogItem CatalogItem { get; set; }
         public IEnumerable<CatalogItem> Recommendations { get; set; }
+
+        public string OutfitSection { get; set; }
     }
 }

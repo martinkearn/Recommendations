@@ -64,11 +64,15 @@ namespace Recommendations.Controllers
             //get recommendations
             var recommendations = await _recommendations.GetRecommendations(new List<CatalogItem>() { catalogItem }, "100", "0");
 
+            //get body section
+            var bodySection = _catalogItems.GetOutfitSection(catalogItem);
+
             //construct view model
             var vm = new CatalogItemViewModel()
             {
                 CatalogItem = catalogItem,
-                Recommendations = recommendations
+                Recommendations = recommendations,
+                OutfitSection = bodySection
             };
 
             //return view
@@ -119,7 +123,8 @@ namespace Recommendations.Controllers
                 TotalcatalogItems = totalcatalogItems,
                 NextPage = nextPage,
                 PreviousPage = previousPage,
-                RelatedCategoryTitles = category.TopRelatedCategoryTitles
+                RelatedCategoryTitles = category.TopRelatedCategoryTitles,
+                OutfitSection = category.OutfitSection
             };
 
             //return view

@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-7">
             <p>ID: @Model.CatalogItem.Id</p>
-            <p>Category: <a asp-controller="Home" asp-action="Category" asp-route-id="@Model.CatalogItem.Type">@Model.CatalogItem.Type</a></p>
+            <p>Category: <a asp-controller="Home" asp-action="Category" asp-route-id="@Model.CatalogItem.Type">@Model.CatalogItem.Type</a> @if(!string.IsNullOrEmpty(Model.OutfitSection)){ <span>(</span>@Model.OutfitSection;<span>)</span> }</p>
             <p>Description: @Model.CatalogItem.Description</p>
             <p>Brand: <a asp-controller="Home" asp-action="Brand" asp-route-id="@Model.CatalogItem.Brand">@Model.CatalogItem.Brand</a></p>
             <p>Colour: @Model.CatalogItem.Colour</p>

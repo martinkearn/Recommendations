@@ -6,7 +6,7 @@
 
 <div class="jumbotron">
     <h1>@ViewData["Title"]</h1>
-    <p>Showing all items in this category</p>
+    <p>Showing all items in this category. @if (!string.IsNullOrEmpty(Model.OutfitSection)){ <span>These items are </span>@Model.OutfitSection;<span>.</span> }</p>
     <p>Click an item to see details and recommendations</p>
     @if (Model.RelatedCategoryTitles.Count() > 0)
     {
