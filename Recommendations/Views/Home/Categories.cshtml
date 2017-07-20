@@ -11,5 +11,5 @@
 
 @foreach (var category in Model.Categories)
 {
-    <p><a asp-action="Category" asp-controller="Home" asp-route-id="@category">@category</a></p>
+    <p><a asp-action="Category" asp-controller="Home" asp-route-id="@category.Title">@category.Title</a></p>
 }

@@ -8,13 +8,13 @@
     <h1>@ViewData["Title"]</h1>
     <p>Showing all items in this category</p>
     <p>Click an item to see details and recommendations</p>
-    @if (Model.RelatedCategories != null)
+    @if (Model.RelatedCategoryTitles.Count() > 0)
     {
         <p>
             <span>Also see</span>
-            @foreach (var relatedCategory in Model.RelatedCategories)
+            @foreach (var relatedCategoryTitle in Model.RelatedCategoryTitles)
             {
-                <a asp-action="Category" asp-controller="Home" asp-route-id="@relatedCategory">@relatedCategory</a>
+                <a asp-action="Category" asp-controller="Home" asp-route-id="@relatedCategoryTitle">@relatedCategoryTitle</a>
             }
         </p>
     }

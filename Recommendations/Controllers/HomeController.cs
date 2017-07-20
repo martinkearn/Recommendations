@@ -14,15 +14,13 @@ namespace Recommendations.Controllers
         private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
-        private readonly ICategoryRepository _categories;
         private const int _pageSize = 21; 
 
-        public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart, ICategoryRepository categories)
+        public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
             _catalogItems = catalogItemsRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
-            _categories = categories;
         }
 
         public IActionResult Index(int? page)
@@ -93,6 +91,8 @@ namespace Recommendations.Controllers
 
         public IActionResult Category(string id, int? page)
         {
+            var category = _catalogItems.GetCategories().Where(o => o.Title.ToLower() == id.ToLower()).FirstOrDefault();
+
             var allCatalogItems = _catalogItems.GetCatalogItems().Where(o => o.Type.ToLower() == id.ToLower());
 
             //get page of catalogItems
@@ -109,9 +109,6 @@ namespace Recommendations.Controllers
             var nextPage = pageNumber + 1;
             var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
 
-            //get related categories
-            var relatedCategories = _categories.GetRelatedCategories(id);
-
             //construct view model
             var vm = new CategoryViewModel()
             {
@@ -122,7 +119,7 @@ namespace Recommendations.Controllers
                 TotalcatalogItems = totalcatalogItems,
                 NextPage = nextPage,
                 PreviousPage = previousPage,
-                RelatedCategories = relatedCategories
+                RelatedCategoryTitles = category.TopRelatedCategoryTitles
             };
 
             //return view

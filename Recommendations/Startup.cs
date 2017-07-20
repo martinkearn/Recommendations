@@ -48,7 +48,6 @@ namespace Recommendations
             services.AddSingleton<IRecommendationsRepository, RecommendationsRepository>();
             services.AddSingleton<ICartRepository, CartRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<ICategoryRepository, CategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

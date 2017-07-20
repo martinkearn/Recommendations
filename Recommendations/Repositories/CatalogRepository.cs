@@ -7,22 +7,30 @@ using System.Linq;
 using System.Text;
 using System;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Recommendations.Dtos;
 
 namespace Recommendations.Repositories
 {
     public class CatalogRepository : ICatalogRepository
     {
         private readonly IEnumerable<CatalogItem> _catalogItems;
+        private readonly IEnumerable<Category> _categories;
         private readonly AppSettings _appSettings;
 
         public CatalogRepository(IHostingEnvironment environment, IOptions<AppSettings> appSettings)
         {
+            //get app settings
             _appSettings = appSettings.Value;
-            Random random = new Random();
-            var catalogItems = new List<CatalogItem>();
+
+            //setup file paths
             var rootPath = environment.ContentRootPath;
-            var storeFilePath = $"{rootPath}/wwwroot/{_appSettings.CatalogFileName}";
-            using (var fileStream = new FileStream(storeFilePath, FileMode.Open))
+            var catalogFilePath = $"{rootPath}/wwwroot/{_appSettings.CatalogFileName}";
+            var categoriesFilePath = $"{rootPath}/wwwroot/{_appSettings.CategoriesFileName}";
+
+            //get catalog items
+            var catalogItems = new List<CatalogItem>();
+            using (var fileStream = new FileStream(catalogFilePath, FileMode.Open))
             {
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
                 {
@@ -47,6 +55,41 @@ namespace Recommendations.Repositories
                 }
             }
             _catalogItems = catalogItems.AsEnumerable();
+
+            //get category items
+            var categoryTitles = _catalogItems.Select(o => o.Type).Distinct().ToList();
+            var categoriesData = JsonConvert.DeserializeObject<List<CategoryDto>>(File.ReadAllText(categoriesFilePath));
+            var categories = new List<Category>();
+            foreach (var categoryTitle in categoryTitles)
+            {
+                //check if we have more data
+                var categoryData = categoriesData.Where(o => o.category.ToLower() == categoryTitle.ToLower()).FirstOrDefault();
+                if (categoryData != null)
+                {
+                    categories.Add(new Category()
+                    {
+                        Title = categoryTitle,
+                        RelatedBodywareCategoryTitles = categoryData.BodywareCategories.ToList(),
+                        RelatedFootwearCategoryTitles = categoryData.FootwearCategories.ToList(),
+                        RelatedHeadwearCategoryTitles = categoryData.HeadwearCategories.ToList(),
+                        RelatedLegwareCategoryTitles = categoryData.LegwareCategories.ToList(),
+                        TopRelatedCategoryTitles = categoryData.RelatedCategories.ToList()
+                    });
+                }
+                else
+                {
+                    categories.Add(new Category()
+                    {
+                        Title = categoryTitle,
+                        RelatedBodywareCategoryTitles = new List<string>(),
+                        RelatedFootwearCategoryTitles = new List<string>(),
+                        RelatedHeadwearCategoryTitles = new List<string>(),
+                        RelatedLegwareCategoryTitles = new List<string>(),
+                        TopRelatedCategoryTitles = new List<string>()
+                    });
+                }
+            }
+            _categories = categories;
         }
 
         public IEnumerable<CatalogItem> GetCatalogItems()
@@ -59,10 +102,14 @@ namespace Recommendations.Repositories
             return _catalogItems.Where(o => o.Id == id).FirstOrDefault();
         }
 
-        public IEnumerable<string> GetCategories()
+        public IEnumerable<Category> GetCategories()
         {
-            var uniqueTypes = _catalogItems.Select(o => o.Type).Distinct().ToList();
-            return uniqueTypes;
+            return _categories;
+        }
+
+        public Category GetCategoryById(string id)
+        {
+            return _categories.Where(o => o.Title == id).FirstOrDefault();
         }
 
         public IEnumerable<string> GetBrands()
