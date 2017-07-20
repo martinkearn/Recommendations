@@ -67,12 +67,16 @@ namespace Recommendations.Controllers
             //get body section
             var bodySection = _catalogItems.GetOutfitSection(catalogItem);
 
+            //get outfit
+            var outfit = _catalogItems.GetOutfit(catalogItem, recommendations);
+
             //construct view model
             var vm = new CatalogItemViewModel()
             {
                 CatalogItem = catalogItem,
                 Recommendations = recommendations,
-                OutfitSection = bodySection
+                OutfitSection = bodySection,
+                Outfit = outfit
             };
 
             //return view

@@ -1,7 +1,7 @@
 @model Recommendations.ViewModels.CatalogItemsPartialViewModel
 
 <div class="row">
-    @for (int i = 0; i < Model.MaxVisible; i++)
+    @for (int i = 0; (i < Model.MaxVisible && i < Model.CatalogItems.Count); i++)
     {
         var catalogItem = Model.CatalogItems[i];
 

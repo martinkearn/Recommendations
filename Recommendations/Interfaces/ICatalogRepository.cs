@@ -16,5 +16,7 @@ namespace Recommendations.Interfaces
         IEnumerable<string> GetBrands();
 
         string GetOutfitSection(CatalogItem catalogItem);
+
+        IEnumerable<CatalogItem> GetOutfit(CatalogItem catalogItem, IEnumerable<CatalogItem> recommendations);
     }
 }

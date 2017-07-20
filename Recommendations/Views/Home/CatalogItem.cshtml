@@ -26,7 +26,13 @@
     </div>
 </div>
 
+@if (Model.Outfit.Count() > 0)
+{
+<h2>Complete the outfit</h2>
+<p>Recommended items to make up an outfit</p>
+@Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Outfit.ToList(), MaxVisible = 4, ItemGridClass = "col-md-4" })
+}
 
-
-<h2>Recomendations <small>Based on this item</small></h2>
+<h2>You may also like</h2>
+<p>Customers that bought this item also bought these items</p>
 @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Recommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })

@@ -14,7 +14,7 @@
     "outfitSection": "Bodywear",
     "footwearCategories": [ "Trainers", "Shoes", "Plimsolls" ],
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
-    "bodywareCategories": [],
+    "bodywareCategories": [ "Polo Shirts", "Replica Shirts & Jerseys" ],
     "headwearCategories": [ "Caps", "Beanies" ],
     "topRelatedCategories": [ "Trainers", "Jeans", "Shorts", "Caps" ]
   },
@@ -22,7 +22,7 @@
   {
     "category": "Jeans",
     "outfitSection": "Legwear",
-    "footwearCategories": [ "Trainers", "Shoes", "Plimsolls", "Boots", "Flip-Flops" ],
+    "footwearCategories": [ "Trainers", "Shoes", "Boots" ],
     "legwareCategories": [],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
     "headwearCategories": [ "Caps", "Beanies" ],
@@ -47,5 +47,25 @@
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
     "headwearCategories": [],
     "topRelatedCategories": [ "Sunglasses", "Wallets" ]
+  },
+
+  {
+    "category": "Shorts",
+    "outfitSection": "Legwear",
+    "footwearCategories": [ "Socks", "Trainers", "Flip-Flops" ],
+    "legwareCategories": [],
+    "bodywareCategories": [ "Replica Shirts & Jerseys", "T-Shirts", "Polo Shirts" ],
+    "headwearCategories": [ "Caps", "Beanies" ],
+    "topRelatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ]
+  },
+
+  {
+    "category": "Replica Shirts & Jerseys",
+    "outfitSection": "Bodywear",
+    "footwearCategories": [ "Football Boots", "Trainers" ],
+    "legwareCategories": [ "Shorts", "Track Pants" ],
+    "bodywareCategories": [ "Hoodies" ],
+    "headwearCategories": [ "Caps", "Beanies" ],
+    "topRelatedCategories": [ "Football Boots", "Shorts", "Footballs" ]
   }
 ]

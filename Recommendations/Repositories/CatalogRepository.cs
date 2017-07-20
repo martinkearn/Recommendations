@@ -120,7 +120,28 @@ namespace Recommendations.Repositories
 
         public string GetOutfitSection(CatalogItem catalogItem)
         {
-            return _categories.FirstOrDefault(o => o.Title == catalogItem.Type)?.OutfitSection;
+            return GetCategoryById(catalogItem.Type).OutfitSection;
+        }
+
+        public IEnumerable<CatalogItem> GetOutfit(CatalogItem catalogItem, IEnumerable<CatalogItem> recommendations)
+        {
+            var category = GetCategoryById(catalogItem.Type);
+
+            var outfit = new List<CatalogItem>();
+
+            var headwear = recommendations.FirstOrDefault(ri => category?.RelatedHeadwearCategoryTitles?.Any(c => c == ri.Type) ?? false);
+            if (headwear != null) outfit.Add(headwear);
+
+            var bodywear = recommendations.FirstOrDefault(ri => category?.RelatedBodywareCategoryTitles?.Any(c => c == ri.Type) ?? false);
+            if (bodywear != null) outfit.Add(bodywear);
+
+            var legwear = recommendations.FirstOrDefault(ri => category?.RelatedLegwareCategoryTitles?.Any(c => c == ri.Type) ?? false);
+            if (legwear != null) outfit.Add(legwear);
+
+            var footwear = recommendations.FirstOrDefault(ri => category?.RelatedFootwearCategoryTitles?.Any(c => c == ri.Type) ?? false);
+            if (footwear != null) outfit.Add(footwear);
+
+            return outfit;
         }
 
         private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)
