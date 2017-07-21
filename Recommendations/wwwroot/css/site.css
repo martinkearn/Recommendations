@@ -1,6 +1,5 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
 }
 
 /* Wrapping element */
@@ -35,3 +34,31 @@ textarea {
         display: none;
     }
 }
+
+footer {
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+    footer a {
+        color: white;
+    }
+
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: white;
+        text-decoration: underline;
+    }
