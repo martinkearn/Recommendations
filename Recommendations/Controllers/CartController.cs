@@ -26,13 +26,9 @@ namespace Recommendations.Controllers
         {
             var cart = _cart.CreateGetCart(HttpContext.Session);
 
-            //var ids = string.Join(",", cart.CartItems.Select(o => o.CatalogItem.Id));
-            //var recommendations = await _recommendations.GetRecommendations(ids, "5", "0");
-
-            var recommendations = cart.CartItems
-                .Select(async o => await _recommendations.GetRecommendations(new List<CatalogItem>() { o.CatalogItem }, "100", "0"))
-                .SelectMany(t => t.Result)
-                .ToList();
+            var cartCatalogItems = cart.CartItems.Select(o => o.CatalogItem).ToList();
+            
+            var recommendations = await _recommendations.GetRecommendations(cartCatalogItems, "100", "0");
 
             //construct view model
             var vm = new CartIndexViewModel()
