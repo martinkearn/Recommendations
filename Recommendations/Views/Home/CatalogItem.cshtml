@@ -22,7 +22,7 @@
             <p>Colour: @Model.CatalogItem.Colour</p>
             <p>Price: <price sell="@Model.CatalogItem.Sell" rrp="@Model.CatalogItem.Rrp" verbose="true"></price> </p>
             <a href="@Model.OnlineLink" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Not all items are still active or in stock">View on JD Sports</a>
-            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.CatalogItem.Id" class="btn btn-primary">Add to cart</a>
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.CatalogItem.Id" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add to cart</a>
         </div>
     </div>
 </div>

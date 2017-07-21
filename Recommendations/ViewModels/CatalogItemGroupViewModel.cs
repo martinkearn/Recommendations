@@ -12,14 +12,6 @@ namespace Recommendations.ViewModels
 
         public IEnumerable<CatalogItem> CatalogItems { get; set; }
 
-        public int CurrentPage { get; set; }
-
-        public int TotalPages { get; set; }
-
-        public int NextPage { get; set; }
-
-        public int PreviousPage { get; set; }
-
-        public int TotalcatalogItems { get; set; }
+        public PagingPartialViewModel PagingPartialViewModel { get; set; }
     }
 }

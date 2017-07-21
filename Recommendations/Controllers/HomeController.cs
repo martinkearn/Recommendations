@@ -25,31 +25,25 @@ namespace Recommendations.Controllers
 
         public IActionResult Index(int? page)
         {
-            var allcatalogItems = _catalogItems.GetCatalogItems();
+            var allCatalogItems = _catalogItems.GetCatalogItems();
      
             //get page of catalogItems
             var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
             var numberToSkip = pageNumber * _pageSize;
 
-            var pageOfcatalogItems = (pageNumber ==1) ?
-                allcatalogItems.Take(_pageSize) :
-                allcatalogItems.Skip(numberToSkip).Take(_pageSize);
+            var pageOfCatalogItems = (pageNumber ==1) ?
+                allCatalogItems.Take(_pageSize) :
+                allCatalogItems.Skip(numberToSkip).Take(_pageSize);
 
             //paging values
-            var totalPages = allcatalogItems.Count() / _pageSize;
-            var totalcatalogItems = allcatalogItems.Count();
-            var nextPage = pageNumber + 1;
-            var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
+            var pagingVm = ConstructPagingVm(allCatalogItems.Count(), pageNumber);
 
             //construct view model
             var vm = new CatalogItemGroupViewModel()
             {
                 GroupName = "Home",
-                CatalogItems = pageOfcatalogItems,
-                CurrentPage = pageNumber,
-                TotalPages = totalPages,
-                NextPage = nextPage,
-                PreviousPage = previousPage
+                CatalogItems = pageOfCatalogItems,
+                PagingPartialViewModel = pagingVm
             };
 
             //return view
@@ -116,21 +110,14 @@ namespace Recommendations.Controllers
                 allCatalogItems.Skip(numberToSkip).Take(_pageSize);
 
             //paging values
-            var totalPages = allCatalogItems.Count() / _pageSize;
-            var totalcatalogItems = allCatalogItems.Count();
-            var nextPage = pageNumber + 1;
-            var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
+            var pagingVm = ConstructPagingVm(allCatalogItems.Count(), pageNumber);
 
             //construct view model
             var vm = new CategoryViewModel()
             {
                 GroupName = id,
                 CatalogItems = pageOfcatalogItems,
-                CurrentPage = pageNumber,
-                TotalPages = totalPages,
-                TotalcatalogItems = totalcatalogItems,
-                NextPage = nextPage,
-                PreviousPage = previousPage,
+                PagingPartialViewModel = pagingVm,
                 RelatedCategoryTitles = category.TopRelatedCategoryTitles,
                 OutfitSection = category.OutfitSection
             };
@@ -166,21 +153,14 @@ namespace Recommendations.Controllers
                 allCatalogItems.Skip(numberToSkip).Take(_pageSize);
 
             //paging values
-            var totalPages = allCatalogItems.Count() / _pageSize;
-            var totalcatalogItems = allCatalogItems.Count();
-            var nextPage = pageNumber + 1;
-            var previousPage = (pageNumber == 1) ? 1 : pageNumber - 1;
+            var pagingVm = ConstructPagingVm(allCatalogItems.Count(), pageNumber);
 
             //construct view model
             var vm = new CatalogItemGroupViewModel()
             {
                 GroupName = id,
                 CatalogItems = pageOfcatalogItems,
-                CurrentPage = pageNumber,
-                TotalPages = totalPages,
-                TotalcatalogItems = totalcatalogItems,
-                NextPage = nextPage,
-                PreviousPage = previousPage
+                PagingPartialViewModel = pagingVm
             };
 
             //return view
@@ -190,6 +170,18 @@ namespace Recommendations.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        private PagingPartialViewModel ConstructPagingVm(int catalogItemsCount, int currentPage)
+        {
+            return new PagingPartialViewModel()
+            {
+                TotalPages = catalogItemsCount / _pageSize,
+                CurrentPage = currentPage,
+                NextPage = currentPage + 1,
+                PreviousPage = (currentPage == 1) ? 1 : currentPage - 1,
+                TotalCatalogItems = catalogItemsCount
+            };
         }
     }
 }

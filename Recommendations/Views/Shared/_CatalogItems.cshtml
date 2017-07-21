@@ -1,41 +1,42 @@
-@model Recommendations.ViewModels.CatalogItemsPartialViewModel
+@model CatalogItemsPartialViewModel
 
-<div class="row">
-    @for (int i = 0; (i < Model.MaxVisible && i < Model.CatalogItems.Count); i++)
-    {
-        var catalogItem = Model.CatalogItems[i];
 
-        <div class="@Model.ItemGridClass">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-nowrap" style="overflow: hidden;text-overflow: ellipsis;" data-toggle="tooltip" data-placement="bottom" title="@catalogItem.Title in @catalogItem.Colour for @catalogItem.Sell.ToString("c")" >
-                        <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
-                            @catalogItem.Title
-                        </a>
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
+    <div class="row">
+        @for (int i = 0; (i < Model.MaxVisible && i < Model.CatalogItems.Count); i++)
+        {
+            var catalogItem = Model.CatalogItems[i];
+
+            <div class="@Model.ItemGridClass">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-nowrap" data-toggle="tooltip" data-placement="bottom" title="@catalogItem.Title in @catalogItem.Colour for @catalogItem.Sell.ToString("c")">
                             <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
-                                <img class="img-responsive" src="@catalogItem.ImageUrl" alt="@catalogItem.Title" />
+                                @catalogItem.Title
                             </a>
-                        </div>
+                        </h3>
                     </div>
-                    @if (catalogItem.RecommendationRating > 0)
-                    {
-                        <span style="position: absolute;top: 40px;width: 100%;">@catalogItem.RecommendationRating.ToString("P", System.Globalization.CultureInfo.InvariantCulture)</span>
-                    }
-                    <div class="row">
-                        <div class="col-md-6">
-                            <price sell="@catalogItem.Sell" rrp="@catalogItem.Rrp" verbose="false"></price>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
+                                    <img class="img-responsive" src="@catalogItem.ImageUrl" alt="@catalogItem.Title" />
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-sm pull-right">Add To Cart</a>
+                        @if (catalogItem.RecommendationRating > 0)
+                        {
+                            <span class="recommendation-rating">@catalogItem.RecommendationRating.ToString("P", System.Globalization.CultureInfo.InvariantCulture)</span>
+                        }
+                        <div class="row">
+                            <div class="col-md-6">
+                                <price sell="@catalogItem.Sell" rrp="@catalogItem.Rrp" verbose="false"></price>
+                            </div>
+                            <div class="col-md-6">
+                                <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Add To Cart</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>

@@ -12,5 +12,4 @@
 
 @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.CatalogItems.ToList(), MaxVisible = Model.CatalogItems.Count(), ItemGridClass = "col-md-4" })
 
-<hr />
-<p><a asp-action="Category" asp-controller="home" asp-route-page="@Model.PreviousPage">< Previous</a> @Model.CurrentPage of @Model.TotalPages <a asp-action="Category" asp-controller="home" asp-route-page="@Model.NextPage">Next ></a></p>
+@Html.Partial("_Paging", Model.PagingPartialViewModel)

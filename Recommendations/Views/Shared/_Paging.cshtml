@@ -1,0 +1,3 @@
+@model PagingPartialViewModel
+<p>Showing @Model.TotalCatalogItems items in total</p>
+<p><a asp-route-page="@Model.PreviousPage" class="btn btn-default"> <i class="fa fa-angle-left" aria-hidden="true"></i> </a> @Model.CurrentPage of @Model.TotalPages <a asp-route-page="@Model.NextPage" class="btn btn-default"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a></p>
