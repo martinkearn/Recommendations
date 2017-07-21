@@ -1,4 +1,4 @@
-﻿
+﻿@model Recommendations.ViewModels.UserLoginViewModel
 
 @{
     ViewData["Title"] = "Login";
@@ -9,3 +9,23 @@
     <p>Set the user ID that you wish to get recommendations and track behaviours for.</p>
     <p>This is not an authentication system; it is simply a way of identifying and changing the user ID in order to drive the personalised aspects of the application.</p>
 </div>
+
+<p>Current User Id is <strong>@Model.UserId</strong>. Ids must correlate with Ids used in the usage file. Try any of these User Ids to see that user's personal recommendations:</p>
+<ul>
+    <li>060ecafb-3a94-464e-be98-138a988ff93c</li>
+    <li>00012a76-2f7e-4f6c-a5a6-fd5e5dfcee3b</li>
+    <li>0cee0d45-c64d-443a-a3e7-c279a667dea4</li>
+</ul>
+
+<form asp-controller="User" asp-action="Login">
+    <div class="form-group">
+        <label class="sr-only" for="userId">User Id</label>
+        <input type="text" class="form-control" asp-for="UserId">
+    </div>
+    <button type="submit" class="btn btn-primary">Set User Id</button>
+</form>
+
+<hr />
+<h2>Personalised Recommendations</h2>
+<p>Recommendation based on your prior purchases</p>
+@Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Recommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
