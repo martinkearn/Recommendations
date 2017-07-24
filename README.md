@@ -19,4 +19,4 @@ The store provides several examples of how the recommendation solution can be us
 * Cart Recommendations. Add several items to the cart to see these. labelled as 'You may also like'
 * Personalised Recommendations. Based on a user's priori shopping history. Login as one of teh sampel user IDs to see these
 
-The application is deployed at http://recommendationsapi.azurewebsites.net/
+The application is deployed at http://sportswearshop.azurewebsites.net/
