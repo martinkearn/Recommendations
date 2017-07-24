@@ -48,7 +48,9 @@ namespace Recommendations.Repositories
 
             var responseContent = await CallRecommendationsApi(seedIds, null, numberOfResults);
 
-            return CastResponseToCatalogItems(responseContent);
+            catalogItems = CastResponseToCatalogItems(responseContent);
+
+            return catalogItems;
         }
 
         /// <summary>

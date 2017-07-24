@@ -20,5 +20,7 @@ namespace Recommendations.Interfaces
         IEnumerable<CatalogItem> GetOutfit(CatalogItem catalogItem, IEnumerable<CatalogItem> recommendations);
 
         IEnumerable<CatalogItem> LikeThisButCheaper(CatalogItem seedItem, IEnumerable<CatalogItem> recommendations, decimal percentageCheaper);
+
+        IEnumerable<CatalogItem> TargetPrice(IEnumerable<CatalogItem> recommendations, decimal targetPrice);
     }
 }

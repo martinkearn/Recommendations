@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Recommendations.Interfaces;
 using Recommendations.Models;
 using Recommendations.ViewModels;
+using Microsoft.Extensions.Options;
 
 namespace Recommendations.Controllers
 {
@@ -14,12 +15,15 @@ namespace Recommendations.Controllers
         private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
+        private decimal _freeShippingThreshold;
 
-        public CartController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public CartController(IOptions<AppSettings> appSettings, ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
             _catalogItems = catalogItemsRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
+
+            _freeShippingThreshold = Convert.ToDecimal(appSettings.Value.FreeShippingThreshold);
         }
 
         public async Task<IActionResult> Index()
@@ -30,11 +34,17 @@ namespace Recommendations.Controllers
             
             var recommendations = await _recommendations.GetRecommendations(cartCatalogItems, "100", "0");
 
+            var targetPrice = _freeShippingThreshold - cart.TotalPrice;
+
+            var recommendationsForFreeShipping = _catalogItems.TargetPrice(recommendations, targetPrice);
+
             //construct view model
             var vm = new CartIndexViewModel()
             {
                 Cart = cart,
-                Recommendations = recommendations
+                Recommendations = recommendations,
+                RecommendationsForFreeShipping = recommendationsForFreeShipping,
+                FreeShippingThreshold = _freeShippingThreshold
             };
 
             //return view

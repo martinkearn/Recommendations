@@ -52,9 +52,27 @@
             <td></td>
             <td><strong>@Model.Cart.TotalPrice.ToString("c")</strong></td>
             <td></td>
+            <td></td>
         </tr>
     </tfoot>
 </table>
+
+<hr />
+<h2>Free shipping on orders over @Model.FreeShippingThreshold.ToString("c")</h2>
+@if (Model.Cart.TotalPrice >= Model.FreeShippingThreshold)
+{
+    <p>Your order qualifies for free shipping</p>
+}
+else
+{
+    <p>You need to spend another @((Model.FreeShippingThreshold - Model.Cart.TotalPrice).ToString("c")) to qualify for free shipping.</p>
+    @if (Model.RecommendationsForFreeShipping.Count() > 0)
+    {
+        <p>Try these suggestions to top your cart up to @Model.FreeShippingThreshold.ToString("c")</p>
+        @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.RecommendationsForFreeShipping.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
+
+    }
+}
 
 @if (Model.Recommendations.Count() > 0)
 {

@@ -12,5 +12,9 @@ namespace Recommendations.ViewModels
         public Cart Cart { get; set; }
 
         public IEnumerable<CatalogItem> Recommendations { get; set; }
+
+        public IEnumerable<CatalogItem> RecommendationsForFreeShipping { get; set; }
+
+        public decimal FreeShippingThreshold { get; set; }
     }
 }

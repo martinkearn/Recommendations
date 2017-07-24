@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Recommendations.Interfaces;
 using Recommendations.ViewModels;
 using Recommendations.Models;
+using Microsoft.Extensions.Options;
 
 namespace Recommendations.Controllers
 {
@@ -14,13 +15,15 @@ namespace Recommendations.Controllers
         private readonly ICatalogRepository _catalogItems;
         private readonly IRecommendationsRepository _recommendations;
         private readonly ICartRepository _cart;
-        private const int _pageSize = 21; 
+        public int _pageSize { get; set; }
 
-        public HomeController(ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
+        public HomeController(IOptions<AppSettings> appSettings, ICatalogRepository catalogItemsRepository, IRecommendationsRepository recommendationsRepository, ICartRepository cart)
         {
             _catalogItems = catalogItemsRepository;
             _recommendations = recommendationsRepository;
             _cart = cart;
+
+            _pageSize = Convert.ToInt16(appSettings.Value.ItemsPerPage);
         }
 
         public IActionResult Index(int? page)

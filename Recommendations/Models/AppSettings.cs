@@ -10,5 +10,7 @@
         public string CatalogFileName { get; set; }
 
         public string CategoriesFileName { get; set; }
+        public string FreeShippingThreshold { get; set; }
+        public string ItemsPerPage { get; set; }
     }
 }

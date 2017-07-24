@@ -153,6 +153,11 @@ namespace Recommendations.Repositories
             return cheaperRecommendations;
         }
 
+        public IEnumerable<CatalogItem> TargetPrice(IEnumerable<CatalogItem> recommendations, decimal targetPrice)
+        {
+            return recommendations.Where(o => o.Sell <= targetPrice).OrderByDescending(o=>o.Sell);
+        }
+
         private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)
         {
             catalogItem.Description = (cells.Count() >= 4) ?
