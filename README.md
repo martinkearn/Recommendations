@@ -12,7 +12,7 @@ The data set is based around sportswear and has over 65,000 catalog items (skus)
 The web application uses the exact same data file as the 'catalog' file for the recommendations solution and so is easily interchangable for different catalogs. You can get sample data based around a collection of books or the Microsoft store from http://aka.ms/RecoSampleData (copies of both catalogs are included in the wwwroot folder).
 
 The store provides several examples of how the recommendation solution can be used in real world scenarios:
-* Catalog Item recommendations. See http://recommendationsapi.azurewebsites.net/Home/CatalogItem/244265 as an example
+* Catalog Item recommendations. See http://sportswearshop.azurewebsites.net/Home/CatalogItem/244265 as an example
     * 'Complete the outfit': Recommended items of different outfit section to make-up a complete outfit
     * 'You may also like': Recommended items based
     * 'Like this but cheaper': Recommended items of eth same type which are at least 20% cheaper
