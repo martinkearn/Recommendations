@@ -18,5 +18,7 @@ namespace Recommendations.Interfaces
         string GetOutfitSection(CatalogItem catalogItem);
 
         IEnumerable<CatalogItem> GetOutfit(CatalogItem catalogItem, IEnumerable<CatalogItem> recommendations);
+
+        IEnumerable<CatalogItem> LikeThisButCheaper(CatalogItem seedItem, IEnumerable<CatalogItem> recommendations, decimal percentageCheaper);
     }
 }

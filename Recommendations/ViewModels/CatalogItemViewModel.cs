@@ -9,6 +9,8 @@ namespace Recommendations.ViewModels
         public CatalogItem CatalogItem { get; set; }
         public IEnumerable<CatalogItem> Recommendations { get; set; }
 
+        public IEnumerable<CatalogItem> CheaperRecommendations { get; set; }
+
         public string OutfitSection { get; set; }
 
         public IEnumerable<CatalogItem> Outfit { get; set; }

@@ -35,7 +35,18 @@
     @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Outfit.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
 }
 
-<hr />
-<h2>You may also like</h2>
-<p>Customers that bought this item also bought these items</p>
-@Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Recommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
+@if (Model.Recommendations.Count() > 0)
+{
+    <hr />
+    <h2>You may also like</h2>
+    <p>Customers that bought this item also bought these items</p>
+    @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Recommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
+}
+
+@if (Model.CheaperRecommendations.Count() > 0)
+{
+    <hr />
+    <h2>Like this but cheaper</h2>
+    <p>These items are similar but at least 20% cheaper</p>
+    @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.CheaperRecommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
+}

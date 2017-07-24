@@ -144,6 +144,15 @@ namespace Recommendations.Repositories
             return outfit;
         }
 
+        public IEnumerable<CatalogItem> LikeThisButCheaper(CatalogItem seedItem, IEnumerable<CatalogItem> recommendations, decimal percentageCheaper)
+        {
+            var maxPrice = seedItem.Sell - ((seedItem.Sell / 100) * percentageCheaper);
+            var cheaperRecommendations = recommendations
+                .Where(o => o.Type == seedItem.Type)
+                .Where(o => o.Sell <= maxPrice);
+            return cheaperRecommendations;
+        }
+
         private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)
         {
             catalogItem.Description = (cells.Count() >= 4) ?

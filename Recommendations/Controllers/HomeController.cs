@@ -58,6 +58,9 @@ namespace Recommendations.Controllers
             //get recommendations
             var recommendations = await _recommendations.GetRecommendations(new List<CatalogItem>() { catalogItem }, "100", "0");
 
+            //get cheaper recommendations
+            var cheaperRecommendations = _catalogItems.LikeThisButCheaper(catalogItem, recommendations, 20);
+
             //get body section
             var bodySection = _catalogItems.GetOutfitSection(catalogItem);
 
@@ -74,7 +77,8 @@ namespace Recommendations.Controllers
                 Recommendations = recommendations,
                 OutfitSection = bodySection,
                 Outfit = outfit,
-                OnlineLink = onlineLink
+                OnlineLink = onlineLink,
+                CheaperRecommendations = cheaperRecommendations
             };
 
             //return view
