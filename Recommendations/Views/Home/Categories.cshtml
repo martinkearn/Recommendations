@@ -9,6 +9,18 @@
     <p>The various categories</p>
 </div>
 
+<h2>Fully Featured Categories</h2>
+<p>These categories are fully enabled for recommendations</p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="Trainers">Trainers</a></p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="T-Shirts">T-Shirts</a></p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="Jeans">Jeans</a></p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="Football Boots">Football Boots</a></p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="Beanies">Beanies</a></p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="Shorts">Shorts</a></p>
+<p><a asp-action="Category" asp-controller="Home" asp-route-id="Replica Shirts & Jerseys">Replica Shirts & Jerseys</a></p>
+
+<hr />
+<h2>All Categories</h2>
 @foreach (var category in Model.Categories)
 {
     <p><a asp-action="Category" asp-controller="Home" asp-route-id="@category.Title">@category.Title</a></p>
