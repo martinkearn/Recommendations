@@ -7,6 +7,11 @@ using Recommendations.Interfaces;
 using Recommendations.ViewModels;
 using Recommendations.Models;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.WebUtilities;
+using Newtonsoft.Json;
+using Recommendations.Dtos;
+using System.Net.Http;
+using System.Text;
 
 namespace Recommendations.Controllers
 {
@@ -182,6 +187,42 @@ namespace Recommendations.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Test()
+        {
+            var catalogItems = new List<CatalogItem>();
+
+            //construct API parameters
+            var parameters = new Dictionary<string, string> {
+                { "recommendationCount", "10" }
+            };
+
+            //construct full API endpoint uri
+            var apiBaseUri = "https://sportshopxmlgqkb7ew5gyws.azurewebsites.net";
+            var apiUri = $"{apiBaseUri}/api/models/f7153430-0ef8-429d-9a1c-d28b43435634/recommend";
+            var apiUriWithParams = QueryHelpers.AddQueryString(apiUri, parameters);
+
+            //construct body of ItemIds
+            var body = @"[{""itemId"":""264343""},{""itemId"":""264293""}]";
+
+            //get personalized recommendations
+            var responseContent = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                //setup HttpClient
+                httpClient.BaseAddress = new Uri(apiBaseUri);
+                httpClient.DefaultRequestHeaders.Add("x-api-key", "cWZ1bzI1cnJseTVsZw==");
+
+                //make request
+                var response = await httpClient.PostAsync(apiUri, new StringContent(body, Encoding.UTF8, "application/json"));
+
+                //read response and parse to object
+                responseContent = await response.Content.ReadAsStringAsync();
+                //ISSUE: The above request always returns the default results which all have a recommendation rating of 0.0. This is the same result as when no body is passed in Postman, however if you pass the value of bodyJson in PostMan, you get proper results 
+            }
+
+            return View(responseContent);
         }
 
         private PagingPartialViewModel ConstructPagingVm(int catalogItemsCount, int currentPage)

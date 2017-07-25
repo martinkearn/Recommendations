@@ -29,13 +29,6 @@ namespace Recommendations.Repositories
             _baseItemToItemApiUrl = _appSettings.RecommendationsApiBaseUrl.Replace("MODELID", _appSettings.RecommendationsApiModelId);
         }
 
-        /// <summary>
-        /// Helper function to call the Recommendations API for recommendations on a list of items
-        /// </summary>
-        /// <param name="ids">Comma seperated list of ItemId's to seed recommendations on</param>
-        /// <param name="numberOfResults">How many results to return</param>
-        /// <param name="minimalScore">Minimal score for results to be included</param>
-        /// <returns>A list of CatalogItems representing recommended items</returns>
         public async Task<IEnumerable<CatalogItem>> GetITIRecommendations(string seedItemId, string numberOfResults, string minimalScore)
         {
             var catalogItems = new List<CatalogItem>();
@@ -69,7 +62,7 @@ namespace Recommendations.Repositories
                 responseContent = await response.Content.ReadAsStringAsync();
             }
 
-            catalogItems = CastResponseToCatalogItems(responseContent);
+            catalogItems = CastResponseToCatalogItems(responseContent, new List<CatalogItem>());
 
             return catalogItems;
         }
@@ -102,9 +95,9 @@ namespace Recommendations.Repositories
                 responseContent = await response.Content.ReadAsStringAsync();
             }
 
-            catalogItems = CastResponseToCatalogItems(responseContent);
+            catalogItems = CastResponseToCatalogItems(responseContent, new List<CatalogItem>());
 
-            return CastResponseToCatalogItems(responseContent);
+            return catalogItems;
         }
 
 
@@ -131,7 +124,7 @@ namespace Recommendations.Repositories
                 }
                 bodyJson = JsonConvert.SerializeObject(seedItemsDto);
             }
-            var body = JsonConvert.SerializeObject(bodyJson);
+            //For testing >>>> var bodyJson = @"[{""itemId"":""264343""},{""itemId"":""264293""}]";
 
             //get personalized recommendations
             var responseContent = string.Empty;
@@ -142,19 +135,18 @@ namespace Recommendations.Repositories
                 httpClient.DefaultRequestHeaders.Add("x-api-key", _appSettings.RecommendationsApiKey);
 
                 //make request
-                var response = await httpClient.PostAsync(apiUri, new StringContent(body, Encoding.UTF8, "application/json"));
+                var response = await httpClient.PostAsync(apiUri, new StringContent(bodyJson, Encoding.UTF8, "application/json"));
 
                 //read response and parse to object
                 responseContent = await response.Content.ReadAsStringAsync();
-                //ISSUE: The above request always returns the default results which all have a recommendation rating of 0.0. This is the same result as when no body is passed in Postman, however if you pass the value of bodyJson in PostMan, you get proper results 
             }
 
-            catalogItems = CastResponseToCatalogItems(responseContent);
+            catalogItems = CastResponseToCatalogItems(responseContent, seedItems);
 
-            return CastResponseToCatalogItems(responseContent);
+            return catalogItems;
         }
 
-        private List<CatalogItem> CastResponseToCatalogItems(string responseContent)
+        private List<CatalogItem> CastResponseToCatalogItems(string responseContent, IEnumerable<CatalogItem> excludedItems)
         {
             var catalogItems = new List<CatalogItem>();
 
@@ -168,16 +160,16 @@ namespace Recommendations.Repositories
             //cast to CatalogItems
             foreach (var recommendedItem in recommendedItems)
             {
-                var catalogItem = _catalogItemsRepository.GetCatalogItemById(recommendedItem.RecommendedItemId);
-                if (recommendedItem.Score == 0)
+                //check that this recommendation is not in the exclusions list
+                if (excludedItems.Where(o => o.Id == recommendedItem.RecommendedItemId).Count() == 0)
                 {
-                    recommendedItem.Score = Convert.ToDecimal(0.000000000000000000000);
+                    var catalogItem = _catalogItemsRepository.GetCatalogItemById(recommendedItem.RecommendedItemId);
+                    catalogItem.RecommendationRating = recommendedItem.Score;
+                    catalogItems.Add(catalogItem);
                 }
-                catalogItem.RecommendationRating = recommendedItem.Score;
-                catalogItems.Add(catalogItem);
             }
 
-            return catalogItems.OrderByDescending(o => o.RecommendationRating).ToList();
+            return catalogItems.ToList();
         }
     }
 }
