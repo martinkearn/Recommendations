@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Recommendations.Dtos
 {
-    public class RecommendedItemDTO
+    public class ItemsDto
     {
-        public string RecommendedItemId { get; set; }
-        public decimal Score { get; set; }
+        public string itemId { get; set; }
     }
 }

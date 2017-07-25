@@ -7,8 +7,9 @@ namespace Recommendations.Interfaces
 {
     public interface IRecommendationsRepository
     {
-        Task<IEnumerable<CatalogItem>> GetRecommendations(List<CatalogItem> seedItems, string numberOfResults, string minimalScore);
+        Task<IEnumerable<CatalogItem>> GetITIRecommendations(string seedItemId, string numberOfResults, string minimalScore);
 
-        Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItems(string userId, string numberOfResults);
+        Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItemsByUser(string userId, string numberOfResults);
+        Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItemsByItems(IEnumerable<CatalogItem> seedItems, string numberOfResults);
     }
 }

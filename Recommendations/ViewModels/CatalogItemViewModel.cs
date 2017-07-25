@@ -16,5 +16,7 @@ namespace Recommendations.ViewModels
         public IEnumerable<CatalogItem> Outfit { get; set; }
 
         public string  OnlineLink { get; set; }
+
+        public IEnumerable<CatalogItem> AcessoryRecommendations { get; set; }
     }
 }

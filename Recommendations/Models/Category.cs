@@ -14,5 +14,6 @@ namespace Recommendations.Models
         public List<string> RelatedBodywareCategoryTitles { get; set; }
         public List<string> RelatedHeadwearCategoryTitles { get; set; }
         public List<string> TopRelatedCategoryTitles { get; set; }
+        public List<string> AccessoryCategoryTitles { get; set; }
     }
 }

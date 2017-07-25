@@ -74,7 +74,8 @@ namespace Recommendations.Repositories
                         RelatedFootwearCategoryTitles = categoryData.footwearCategories.ToList(),
                         RelatedHeadwearCategoryTitles = categoryData.headwearCategories.ToList(),
                         RelatedLegwareCategoryTitles = categoryData.legwareCategories.ToList(),
-                        TopRelatedCategoryTitles = categoryData.topRelatedCategories.ToList()
+                        TopRelatedCategoryTitles = categoryData.topRelatedCategories.ToList(),
+                        AccessoryCategoryTitles = categoryData.accessoryCategories.ToList()
                     });
                 }
                 else
@@ -86,7 +87,8 @@ namespace Recommendations.Repositories
                         RelatedFootwearCategoryTitles = new List<string>(),
                         RelatedHeadwearCategoryTitles = new List<string>(),
                         RelatedLegwareCategoryTitles = new List<string>(),
-                        TopRelatedCategoryTitles = new List<string>()
+                        TopRelatedCategoryTitles = new List<string>(),
+                        AccessoryCategoryTitles = new List<string>()
                     });
                 }
             }
@@ -105,7 +107,7 @@ namespace Recommendations.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            return _categories;
+            return _categories.OrderBy(o=>o.Title);
         }
 
         public Category GetCategoryById(string id)
@@ -123,9 +125,9 @@ namespace Recommendations.Repositories
             return GetCategoryById(catalogItem.Type).OutfitSection;
         }
 
-        public IEnumerable<CatalogItem> GetOutfit(CatalogItem catalogItem, IEnumerable<CatalogItem> recommendations)
+        public IEnumerable<CatalogItem> GetOutfit(CatalogItem seedItem, IEnumerable<CatalogItem> recommendations)
         {
-            var category = GetCategoryById(catalogItem.Type);
+            var category = GetCategoryById(seedItem.Type);
 
             var outfit = new List<CatalogItem>();
 
@@ -144,7 +146,7 @@ namespace Recommendations.Repositories
             return outfit;
         }
 
-        public IEnumerable<CatalogItem> LikeThisButCheaper(CatalogItem seedItem, IEnumerable<CatalogItem> recommendations, decimal percentageCheaper)
+        public IEnumerable<CatalogItem> GetLikeThisButCheaper(CatalogItem seedItem, IEnumerable<CatalogItem> recommendations, decimal percentageCheaper)
         {
             var maxPrice = seedItem.Sell - ((seedItem.Sell / 100) * percentageCheaper);
             var cheaperRecommendations = recommendations
@@ -153,9 +155,23 @@ namespace Recommendations.Repositories
             return cheaperRecommendations;
         }
 
-        public IEnumerable<CatalogItem> TargetPrice(IEnumerable<CatalogItem> recommendations, decimal targetPrice)
+        public IEnumerable<CatalogItem> GetTargetPrice(IEnumerable<CatalogItem> recommendations, decimal targetPrice)
         {
             return recommendations.Where(o => o.Sell <= targetPrice).OrderByDescending(o=>o.Sell);
+        }
+
+        public IEnumerable<CatalogItem> GetRelatedAccesories(IEnumerable<CatalogItem> seedItems, IEnumerable<CatalogItem> recommendations)
+        {
+            var relatedAccesories = new List<CatalogItem>();
+
+            foreach (var seedItem in seedItems)
+            {
+                var categoryForItem = GetCategoryById(seedItem.Type);
+                var relatedAccesoriesForItem = recommendations.Where(ri => categoryForItem?.AccessoryCategoryTitles?.Any(c => c == ri.Type) ?? false);
+                relatedAccesories.AddRange(relatedAccesoriesForItem);
+            }
+
+            return relatedAccesories;
         }
 
         private CatalogItem AddOptionalProperties(CatalogItem catalogItem, string[] cells)

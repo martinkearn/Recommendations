@@ -10,11 +10,21 @@
     <p>Click an item to see details and recommendations</p>
     @if (Model.RelatedCategoryTitles.Count() > 0)
     {
+        <h3>Top Related Categories</h3>
         <p>
-            <span>Also see</span>
             @foreach (var relatedCategoryTitle in Model.RelatedCategoryTitles)
             {
                 <a asp-action="Category" asp-controller="Home" asp-route-id="@relatedCategoryTitle">@relatedCategoryTitle</a>
+            }
+        </p>
+    }
+    @if (Model.RelatedAccessoryTitles.Count() > 0)
+    {
+        <h3>Related Acessory Categories</h3>
+        <p>
+            @foreach (var relatedAccessoryTitle in Model.RelatedAccessoryTitles)
+            {
+                <a asp-action="Category" asp-controller="Home" asp-route-id="@relatedAccessoryTitle">@relatedAccessoryTitle</a>
             }
         </p>
     }

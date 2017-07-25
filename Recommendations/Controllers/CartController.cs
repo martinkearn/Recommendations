@@ -31,18 +31,20 @@ namespace Recommendations.Controllers
             var cart = _cart.CreateGetCart(HttpContext.Session);
 
             var cartCatalogItems = cart.CartItems.Select(o => o.CatalogItem).ToList();
-            
-            var recommendations = await _recommendations.GetRecommendations(cartCatalogItems, "100", "0");
+
+            var recommendationsByItems = await _recommendations.GetPersonalizedRecommendedItemsByItems(cartCatalogItems, "100");
 
             var targetPrice = _freeShippingThreshold - cart.TotalPrice;
 
-            var recommendationsForFreeShipping = _catalogItems.TargetPrice(recommendations, targetPrice);
+            var recommendationsForFreeShipping = _catalogItems.GetTargetPrice(recommendationsByItems, targetPrice);
+
+            var accesories = _catalogItems.GetRelatedAccesories(cartCatalogItems, recommendationsByItems);
 
             //construct view model
             var vm = new CartIndexViewModel()
             {
                 Cart = cart,
-                Recommendations = recommendations,
+                Recommendations = recommendationsByItems,
                 RecommendationsForFreeShipping = recommendationsForFreeShipping,
                 FreeShippingThreshold = _freeShippingThreshold
             };

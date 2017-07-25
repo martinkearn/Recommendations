@@ -15,5 +15,6 @@ namespace Recommendations.Dtos
         public IEnumerable<string> bodywareCategories { get; set; }
         public IEnumerable<string> headwearCategories { get; set; }
         public IEnumerable<string> topRelatedCategories { get; set; }
+        public IEnumerable<string> accessoryCategories { get; set; }
     }
 }

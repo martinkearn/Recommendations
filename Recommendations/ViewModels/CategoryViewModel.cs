@@ -10,5 +10,6 @@ namespace Recommendations.ViewModels
     {
         public IEnumerable<string> RelatedCategoryTitles { get; set; }
         public string OutfitSection { get; set; }
+        public IEnumerable<string> RelatedAccessoryTitles { get; set; }
     }
 }

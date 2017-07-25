@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Text;
+using System.Net.Http.Headers;
 
 namespace Recommendations.Repositories
 {
@@ -34,51 +36,20 @@ namespace Recommendations.Repositories
         /// <param name="numberOfResults">How many results to return</param>
         /// <param name="minimalScore">Minimal score for results to be included</param>
         /// <returns>A list of CatalogItems representing recommended items</returns>
-        public async Task<IEnumerable<CatalogItem>> GetRecommendations(List<CatalogItem> seedItems, string numberOfResults, string minimalScore)
+        public async Task<IEnumerable<CatalogItem>> GetITIRecommendations(string seedItemId, string numberOfResults, string minimalScore)
         {
             var catalogItems = new List<CatalogItem>();
 
-            if (seedItems.Count == 0)
+            if (string.IsNullOrEmpty(seedItemId))
             {
                 return catalogItems;
             }
 
-            //get seed item IDs into a comma seperated string
-            var seedIds = string.Join(",", seedItems.Select(o => o.Id).ToList());
-
-            var responseContent = await CallRecommendationsApi(seedIds, null, numberOfResults);
-
-            catalogItems = CastResponseToCatalogItems(responseContent);
-
-            return catalogItems;
-        }
-
-        /// <summary>
-        /// Helper function to call the Recommendations API for recommendations for a user id
-        /// </summary>
-        /// <param name="userId">ID of the user to get recommendatiosn for</param>
-        /// <param name="numberOfResults">How many results to return</param>
-        /// <returns>A list of CatalogItems representing recommended items</returns>
-        public async Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItems(string userId, string numberOfResults)
-        {
-            if (string.IsNullOrEmpty(userId))
-            {
-                return new List<CatalogItem>();
-            }
-
-            var responseContent = await CallRecommendationsApi(null, userId, numberOfResults);
-
-            return CastResponseToCatalogItems(responseContent);
-        }
-
-        private async Task<string> CallRecommendationsApi(string itemIds, string userId, string numberOfResults)
-        {
             //construct API parameters
             var parameters = new Dictionary<string, string> {
                 { "recommendationCount", numberOfResults }
             };
-            if (!string.IsNullOrEmpty(itemIds)) parameters.Add("itemId", itemIds);
-            if (!string.IsNullOrEmpty(userId)) parameters.Add("userId", userId);
+            if (!string.IsNullOrEmpty(seedItemId)) parameters.Add("itemId", seedItemId);
 
             //construct full API endpoint uri
             var apiUri = QueryHelpers.AddQueryString(_baseItemToItemApiUrl, parameters);
@@ -91,16 +62,96 @@ namespace Recommendations.Repositories
                 httpClient.BaseAddress = new Uri(_baseItemToItemApiUrl);
                 httpClient.DefaultRequestHeaders.Add("x-api-key", _appSettings.RecommendationsApiKey);
 
-                //make request. If we are using itemId, we need to do a GET, if we are using userId, we need a POST
-                var response = (itemIds != null) ?
-                    await httpClient.GetAsync(apiUri) :
-                    await httpClient.PostAsync(apiUri, null);
+                //make request
+                var response = await httpClient.GetAsync(apiUri);
 
                 //read response and parse to object
                 responseContent = await response.Content.ReadAsStringAsync();
             }
 
-            return responseContent;
+            catalogItems = CastResponseToCatalogItems(responseContent);
+
+            return catalogItems;
+        }
+
+        public async Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItemsByUser(string userId, string numberOfResults)
+        {
+            var catalogItems = new List<CatalogItem>();
+
+            //construct API parameters
+            var parameters = new Dictionary<string, string> {
+                { "recommendationCount", numberOfResults }
+            };
+            if (!string.IsNullOrEmpty(userId)) parameters.Add("userId", userId);
+
+            //construct full API endpoint uri
+            var apiUri = QueryHelpers.AddQueryString(_baseItemToItemApiUrl, parameters);
+
+            //get personalized recommendations
+            var responseContent = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                //setup HttpClient
+                httpClient.BaseAddress = new Uri(_baseItemToItemApiUrl);
+                httpClient.DefaultRequestHeaders.Add("x-api-key", _appSettings.RecommendationsApiKey);
+
+                //make request
+                var response = await httpClient.PostAsync(apiUri, null);
+
+                //read response and parse to object
+                responseContent = await response.Content.ReadAsStringAsync();
+            }
+
+            catalogItems = CastResponseToCatalogItems(responseContent);
+
+            return CastResponseToCatalogItems(responseContent);
+        }
+
+
+        public async Task<IEnumerable<CatalogItem>> GetPersonalizedRecommendedItemsByItems(IEnumerable<CatalogItem> seedItems, string numberOfResults)
+        {
+            var catalogItems = new List<CatalogItem>();
+
+            //construct API parameters
+            var parameters = new Dictionary<string, string> {
+                { "recommendationCount", numberOfResults }
+            };
+
+            //construct full API endpoint uri
+            var apiUri = QueryHelpers.AddQueryString(_baseItemToItemApiUrl, parameters);
+
+            //construct body of ItemIds
+            var bodyJson = string.Empty;
+            if (seedItems.Count() > 0)
+            {
+                var seedItemsDto = new List<ItemsDto>();
+                foreach (var seedItem in seedItems)
+                {
+                    seedItemsDto.Add(new ItemsDto() { itemId = seedItem.Id });
+                }
+                bodyJson = JsonConvert.SerializeObject(seedItemsDto);
+            }
+            var body = JsonConvert.SerializeObject(bodyJson);
+
+            //get personalized recommendations
+            var responseContent = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                //setup HttpClient
+                httpClient.BaseAddress = new Uri(_baseItemToItemApiUrl);
+                httpClient.DefaultRequestHeaders.Add("x-api-key", _appSettings.RecommendationsApiKey);
+
+                //make request
+                var response = await httpClient.PostAsync(apiUri, new StringContent(body, Encoding.UTF8, "application/json"));
+
+                //read response and parse to object
+                responseContent = await response.Content.ReadAsStringAsync();
+                //ISSUE: The above request always returns the default results which all have a recommendation rating of 0.0. This is the same result as when no body is passed in Postman, however if you pass the value of bodyJson in PostMan, you get proper results 
+            }
+
+            catalogItems = CastResponseToCatalogItems(responseContent);
+
+            return CastResponseToCatalogItems(responseContent);
         }
 
         private List<CatalogItem> CastResponseToCatalogItems(string responseContent)
@@ -118,11 +169,15 @@ namespace Recommendations.Repositories
             foreach (var recommendedItem in recommendedItems)
             {
                 var catalogItem = _catalogItemsRepository.GetCatalogItemById(recommendedItem.RecommendedItemId);
+                if (recommendedItem.Score == 0)
+                {
+                    recommendedItem.Score = Convert.ToDecimal(0.000000000000000000000);
+                }
                 catalogItem.RecommendationRating = recommendedItem.Score;
                 catalogItems.Add(catalogItem);
             }
 
-            return catalogItems;
+            return catalogItems.OrderByDescending(o => o.RecommendationRating).ToList();
         }
     }
 }

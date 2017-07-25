@@ -59,16 +59,19 @@ namespace Recommendations.Controllers
             var catalogItem = _catalogItems.GetCatalogItemById(id);
 
             //get recommendations
-            var recommendations = await _recommendations.GetRecommendations(new List<CatalogItem>() { catalogItem }, "100", "0");
+            var recommendations = await _recommendations.GetITIRecommendations(catalogItem.Id, "100", "0");
 
             //get cheaper recommendations
-            var cheaperRecommendations = _catalogItems.LikeThisButCheaper(catalogItem, recommendations, 20);
+            var cheaperRecommendations = _catalogItems.GetLikeThisButCheaper(catalogItem, recommendations, 20);
 
             //get body section
             var bodySection = _catalogItems.GetOutfitSection(catalogItem);
 
             //get outfit
             var outfit = _catalogItems.GetOutfit(catalogItem, recommendations);
+
+            //get accesory recommendations
+            var accesories = _catalogItems.GetRelatedAccesories(new List<CatalogItem>() { catalogItem }, recommendations);
 
             //get online link
             var onlineLink = ($"https://www.jdsports.co.uk/product/{catalogItem.Colour}-{catalogItem.Title}/{catalogItem.Id}/").ToLower().Replace(" ", "-");
@@ -81,7 +84,8 @@ namespace Recommendations.Controllers
                 OutfitSection = bodySection,
                 Outfit = outfit,
                 OnlineLink = onlineLink,
-                CheaperRecommendations = cheaperRecommendations
+                CheaperRecommendations = cheaperRecommendations,
+                AcessoryRecommendations = accesories
             };
 
             //return view
@@ -126,7 +130,8 @@ namespace Recommendations.Controllers
                 CatalogItems = pageOfcatalogItems,
                 PagingPartialViewModel = pagingVm,
                 RelatedCategoryTitles = category.TopRelatedCategoryTitles,
-                OutfitSection = category.OutfitSection
+                OutfitSection = category.OutfitSection,
+                RelatedAccessoryTitles = category.AccessoryCategoryTitles
             };
 
             //return view

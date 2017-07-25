@@ -6,7 +6,8 @@
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Vests" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "topRelatedCategories": [ "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ]
+    "topRelatedCategories": [ "Sunglasses", "Wallets", "Gloves", "Miscellaneous", "Bags", "Insoles" ],
+    "accessoryCategories": [ "Laces", "Socks", "Shoe Care" ]
   },
 
   {
@@ -16,7 +17,8 @@
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "Polo Shirts", "Replica Shirts & Jerseys" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "topRelatedCategories": [ "Trainers", "Jeans", "Shorts", "Caps" ]
+    "topRelatedCategories": [ "Trainers", "Jeans", "Shorts", "Caps" ],
+    "accessoryCategories": [ "Caps" ]
   },
 
   {
@@ -26,7 +28,8 @@
     "legwareCategories": [],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "topRelatedCategories": [ "Sunglasses", "Wallets", "T-Shirts" ]
+    "topRelatedCategories": [ "Sunglasses", "Wallets", "T-Shirts" ],
+    "accessoryCategories": [ "Belts", "Wallets" ]
   },
 
   {
@@ -36,7 +39,8 @@
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "Replica Shirts & Jerseys" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "topRelatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ]
+    "topRelatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ],
+    "accessoryCategories": [ "Shin Pads", "Footballs" ]
   },
 
   {
@@ -46,7 +50,8 @@
     "legwareCategories": [ "Jeans", "Shorts", "Track Pants" ],
     "bodywareCategories": [ "T-Shirts", "Jackets", "Sweatshirts", "Shirts" ],
     "headwearCategories": [],
-    "topRelatedCategories": [ "Sunglasses", "Wallets" ]
+    "topRelatedCategories": [ "Sunglasses", "Wallets" ],
+    "accessoryCategories": [ "Sunglasses" ]
   },
 
   {
@@ -56,7 +61,8 @@
     "legwareCategories": [],
     "bodywareCategories": [ "Replica Shirts & Jerseys", "T-Shirts", "Polo Shirts" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "topRelatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ]
+    "topRelatedCategories": [ "Footballs", "Ball Pumps", "Sports Support", "Fitness Equipment", "Shin Pads" ],
+    "accessoryCategories": [ "Socks" ]
   },
 
   {
@@ -66,6 +72,7 @@
     "legwareCategories": [ "Shorts", "Track Pants" ],
     "bodywareCategories": [ "Hoodies" ],
     "headwearCategories": [ "Caps", "Beanies" ],
-    "topRelatedCategories": [ "Football Boots", "Shorts", "Footballs" ]
+    "topRelatedCategories": [ "Football Boots", "Shorts", "Footballs" ],
+    "accessoryCategories": [ "Footballs", "Football Boots" ]
   }
 ]

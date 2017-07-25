@@ -50,3 +50,11 @@
     <p>These items are similar but at least 20% cheaper</p>
     @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.CheaperRecommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
 }
+
+@if (Model.AcessoryRecommendations.Count() > 0)
+{
+    <hr />
+    <h2>Acessories</h2>
+    <p>These items are recommended acessories</p>
+    @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.AcessoryRecommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
+}

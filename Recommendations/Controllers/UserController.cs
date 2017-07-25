@@ -27,7 +27,7 @@ namespace Recommendations.Controllers
             var userId = _user.GetUser(HttpContext.Session);
 
             //get personalised recommendations
-            var recommnedations = await _recommendations.GetPersonalizedRecommendedItems(userId, "5");
+            var recommnedations = await _recommendations.GetPersonalizedRecommendedItemsByUser(userId, "5");
 
             //construct view model
             var vm = new UserLoginViewModel()
