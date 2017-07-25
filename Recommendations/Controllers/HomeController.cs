@@ -64,7 +64,7 @@ namespace Recommendations.Controllers
             var catalogItem = _catalogItems.GetCatalogItemById(id);
 
             //get recommendations
-            var recommendations = await _recommendations.GetITIRecommendations(catalogItem.Id, "100", "0");
+            var recommendations = await _recommendations.GetITIRecommendations(catalogItem.Id, "100", "1");
 
             //get cheaper recommendations
             var cheaperRecommendations = _catalogItems.GetLikeThisButCheaper(catalogItem, recommendations, 20);
