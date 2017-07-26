@@ -11,7 +11,7 @@
 </div>
 
 <p>Current User Id is <strong>@Model.UserId</strong>. Ids must correlate with Ids used in the usage file. Try any of these User Ids to see that user's personal recommendations:</p>
-<ul>
+<ul class="list-unstyled">
     <li>060ecafb-3a94-464e-be98-138a988ff93c</li>
     <li>00012a76-2f7e-4f6c-a5a6-fd5e5dfcee3b</li>
     <li>0cee0d45-c64d-443a-a3e7-c279a667dea4</li>
@@ -19,7 +19,7 @@
 
 <form asp-controller="User" asp-action="Login">
     <div class="form-group">
-        <label class="sr-only" for="userId">User Id</label>
+        <label for="userId">User Id</label>
         <input type="text" class="form-control" asp-for="UserId">
     </div>
     <button type="submit" class="btn btn-primary">Set User Id</button>

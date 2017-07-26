@@ -54,7 +54,8 @@
 @if (Model.AcessoryRecommendations.Count() > 0)
 {
     <hr />
-    <h2>Acessories</h2>
+    <h2>Accessories</h2>
     <p>These items are recommended acessories</p>
+    <p><strong>There is a known issue here. Accessories that do not appear relevant are being shown and 'adidas Scotland 2016' is being shown a lot.</strong></p>
     @Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.AcessoryRecommendations.ToList(), MaxVisible = 4, ItemGridClass = "col-md-3" })
 }
