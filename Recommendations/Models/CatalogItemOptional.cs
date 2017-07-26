@@ -13,6 +13,5 @@ namespace Recommendations.Models
         public string Brand { get; set; }
         public string ImageUrl { get; set; }
         public string Colour { get; set; }
-        public IEnumerable<CatalogItem> Recommendations { get; set; }
     }
 }
