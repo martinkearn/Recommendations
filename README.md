@@ -2,7 +2,7 @@
 This is a simple application showing how to call the [Cortana Intelligence Gallery Recommendations Solution](https://gallery.cortanaintelligence.com/Tutorial/Recommendations-Solution) in ASP.Net Core 1.1.
 
 ## What is the 'Cortana Intelligence Gallery Recommendations Solution'
-The Cortana Intelligence Gallery Recommendations Solution is based on the same capabilities as the [Microsoft Cognitive Services Recommendations API](https://azure.microsoft.com/en-us/services/cognitive-services/recommendations/) but instead depliys the various components required into your Azure subscription. You can deploy teh solution [here](https://start.cortanaintelligence.com/Deployments/new/recommendationswebapp). You will require an Azure subscription to use the solution. 
+The Cortana Intelligence Gallery Recommendations Solution is based on the same capabilities as the [Microsoft Cognitive Services Recommendations API](https://azure.microsoft.com/en-us/services/cognitive-services/recommendations/) but instead deploys the various components required into your Azure subscription. You can deploy the solution [here](https://start.cortanaintelligence.com/Deployments/new/recommendationswebapp). You will require an Azure subscription to use the solution. 
 
 ## What does the application do? 
 This is a simple web application which presents a very basic e-commerce store experience using a sample dataset which has already been configured with recommendations solution. 
@@ -15,8 +15,11 @@ The store provides several examples of how the recommendation solution can be us
 * Catalog Item recommendations. See http://sportswearshop.azurewebsites.net/Home/CatalogItem/244265 as an example
     * 'Complete the outfit': Recommended items of different outfit section to make-up a complete outfit
     * 'You may also like': Recommended items based
-    * 'Like this but cheaper': Recommended items of eth same type which are at least 20% cheaper
-* Cart Recommendations. Add several items to the cart to see these. labelled as 'You may also like'
-* Personalised Recommendations. Based on a user's priori shopping history. Login as one of teh sampel user IDs to see these
+    * 'Like this but cheaper': Recommended items of the same type which are at least 20% cheaper
+    * 'Accessories': Acessory items that go with the main item
+* Cart Recommendations. Add several items to the cart to see these
+   * 'You may also like': Recommendations base don eth entire content of the cart
+   * 'Free shipping': Recommendation to raise the cart value over the $60 free shipping threshold
+* Personalised Recommendations. Based on a user's prior shopping history. Login as one of the sample user IDs to see these
 
 The application is deployed at http://sportswearshop.azurewebsites.net/
