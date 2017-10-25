@@ -46,12 +46,27 @@ namespace Recommendations.Controllers
             //paging values
             var pagingVm = ConstructPagingVm(allCatalogItems.Count(), pageNumber);
 
-            //construct view model
-            var vm = new CatalogItemGroupViewModel()
+            //construct main items view model
+            var catalogItemGroupViewModel = new CatalogItemGroupViewModel()
             {
                 GroupName = "Home",
                 CatalogItems = pageOfCatalogItems,
                 PagingPartialViewModel = pagingVm
+            };
+
+            //construct featured items view model
+            var featuredCatalogItems = new List<CatalogItem>();
+            featuredCatalogItems.Add(allCatalogItems.Where(i => i.Id == "244265").FirstOrDefault());
+            featuredCatalogItems.Add(allCatalogItems.Where(i => i.Id == "250497").FirstOrDefault());
+            featuredCatalogItems.Add(allCatalogItems.Where(i => i.Id == "245126").FirstOrDefault());
+            featuredCatalogItems.Add(allCatalogItems.Where(i => i.Id == "264343").FirstOrDefault());
+            featuredCatalogItems.Add(allCatalogItems.Where(i => i.Id == "87185").FirstOrDefault()); 
+
+            //construct main view model
+            var vm = new HomeViewModel()
+            {
+                FeaturedCatalogItems = featuredCatalogItems,
+                CatalogItems = catalogItemGroupViewModel
             };
 
             //return view

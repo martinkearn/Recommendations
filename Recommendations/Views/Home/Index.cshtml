@@ -1,17 +1,53 @@
-﻿@model CatalogItemGroupViewModel
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = "Sportwear Shop";
 }
 
-<div class="jumbotron">
-    <h1>@ViewData["Title"]</h1>
-    <p>Showing all items in all categories</p>
-    <p>Click an item to see details and recommendations</p>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        @foreach (var catalogItem in Model.FeaturedCatalogItems)
+            {
+            <div class="@(catalogItem.Id == Model.FeaturedCatalogItems.FirstOrDefault().Id ? "item active":"item")">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">
+                            <img class="img-responsive" src="@catalogItem.ImageUrl" alt="@catalogItem.Title" />
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <h1><a asp-action="CatalogItem" asp-controller="Home" asp-route-id="@catalogItem.Id">@catalogItem.Title</a></h1>
+                        <p>@catalogItem.Brand</p>
+                        <p>@catalogItem.Colour</p>
+                        <p><price sell="@catalogItem.Sell" rrp="@catalogItem.Rrp" verbose="true"></price> </p>
+                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@catalogItem.Id" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.FeaturedCatalogItems.Count > 0)
+    {
+            <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+    }
 </div>
 
-@Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.CatalogItems.ToList(), MaxVisible = Model.CatalogItems.Count(), ItemGridClass = "col-md-4" })
 
-@Html.Partial("_Paging", Model.PagingPartialViewModel)
+<br />
+
+
+@Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.CatalogItems.CatalogItems.ToList(), MaxVisible = Model.CatalogItems.CatalogItems.Count(), ItemGridClass = "col-md-4" })
+
+@Html.Partial("_Paging", Model.CatalogItems.PagingPartialViewModel)
 
 
