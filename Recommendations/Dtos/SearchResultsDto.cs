@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Recommendations.Dtos
+﻿namespace Recommendations.Dtos
 {
-    using System;
-    using System.Net;
-    using System.Collections.Generic;
-
     using Newtonsoft.Json;
+    using System.Collections.Generic;
 
     public partial class SearchResults
     {
