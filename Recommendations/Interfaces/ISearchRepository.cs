@@ -8,6 +8,6 @@ namespace Recommendations.Interfaces
 {
     public interface ISearchRepository
     {
-        IEnumerable<CatalogItem> SearchCatalogItems();
+        Task<IEnumerable<CatalogItem>> SearchCatalogItems(string query);
     }
 }

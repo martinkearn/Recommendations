@@ -12,5 +12,7 @@
         public string CategoriesFileName { get; set; }
         public string FreeShippingThreshold { get; set; }
         public string ItemsPerPage { get; set; }
+        public string SearchApiBaseUrl { get; set; }
+        public string SearchApiQueryKey { get; set; }
     }
 }
