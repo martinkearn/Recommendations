@@ -1,0 +1,23 @@
+@model SearchIndexViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="jumbotron">
+    <h1>@ViewData["Title"]</h1>
+    <p>Search for items (powered by Azure Search).</p>
+</div>
+
+<form asp-controller="Search" asp-action="Index">
+    <div class="form-group">
+        <label for="Query">Search Query</label>
+        <input type="text" class="form-control" asp-for="Query">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<hr />
+<h2>Your Search Results</h2>
+<p>You searched for <strong>@Model.Query</strong> which yielded <strong>@Model.Results.Count()</strong> results.</p>
+@Html.Partial("_CatalogItems", new CatalogItemsPartialViewModel() { CatalogItems = Model.Results.ToList(), MaxVisible = Model.Results.Count(), ItemGridClass = "col-md-4" })
